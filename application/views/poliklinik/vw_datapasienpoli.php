@@ -26,53 +26,55 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No Registrasi</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Kelamin</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Berobat</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No HP</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Registrasi</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach($data_pasien as $pasien) : ?>
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0"><?= $i; ?></p>
+                          <p class="text-xs font-weight-bold mb-0">1</p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['nama_pasien']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">0001</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['nik']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">Nabila Azura</p>
                       </td>
                       <td> 
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['jenis_kelamin']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">00178623528975</p>
                       </td>
                       <td> 
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['tanggal_lahir']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">Perempuan</p>
+                      </td>
+                      <td> 
+                        <p class="text-xs font-weight-bold mb-0">20/01/2001</p>
                       </td>
                       <td style="max-width: 200px;"> 
-                        <p class="text-xs font-weight-bold mb-0 text-truncate"><?= $pasien['alamat']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0 text-truncate">Jalan Delima 9 gg keluarga panam pekanbaru</p>
                       </td>
                       <td> 
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['no_hp']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">23/01/2001</p>
                       </td>
                       <td> 
-                        <p class="text-xs font-weight-bold mb-0"><?= $pasien['tanggal_registrasi']; ?></p>
+                        <p class="text-xs font-weight-bold mb-0">082133611160</p>
                       </td>
-                      <td class="align-middle text-left text-sm">
-                        <a href="<?= base_url(); ?>Loket/detailPasien" class="badge badge-sm bg-gradient-success">Detail</a>
+                      <td class="align-middle text-center text-sm">
+                        <a href="<?= base_url(); ?>Poliklinik/detailPasien" class="badge badge-sm bg-gradient-success">Detail</a>
                       </td>
                     </tr>
-                    <?php endforeach; ?>
+                    
                   </tbody>
                 </table>
               </div>

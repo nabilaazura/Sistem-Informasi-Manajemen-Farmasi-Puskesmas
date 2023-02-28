@@ -9,20 +9,19 @@
                 <select class="form-control" id="exampleFormControlSelect1">
                     <option>1</option>
                     <option>2</option>
-                    <option>3</option>
+                    <option>3</option> 
                 </select>
             </div>
         </div>
         <div class="col-sm-7"></div>
-        <div class="col-sm-3 d-flex justify-content-center">
-            <a href="<?= base_url(); ?>Loket/tambahPendaftaran" class="btn bg-gradient-default float-right" style="background-color: white;">Pasien Baru</a>&nbsp;&nbsp;&nbsp;
-            <a href="<?= base_url(); ?>Loket/cariPasien" class="btn bg-gradient-default float-right" style="background-color: white;">Pasien Lama</a>
-        </div>
+        
     </div>
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
+            <a href="<?= base_url(); ?>Loket/pendaftaranPasien" class="btn btn-primary float-end ml-3" style="margin-left: 10px;">Pasien Baru</a>
+            <a href="<?= base_url(); ?>Loket/cariPasien" class="btn btn-outline-primary float-end ml-3 ps-3">Pasien Lama</a>
               <h6>Data Pendaftaran Pasien</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -30,16 +29,16 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No Pendaftaran</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Kelamin</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Lahir</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Daftar</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No HP</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Poliklinik</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Kelamin</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Daftar</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No HP</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Poliklinik</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
@@ -47,8 +46,8 @@
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0">1</p>
+                          <div>
+                          <p class="text-xs text-center font-weight-bold mb-0">1</p>
                           </div>
                         </div>
                       </td>
@@ -67,8 +66,8 @@
                       <td> 
                         <p class="text-xs font-weight-bold mb-0">20/01/2001</p>
                       </td>
-                      <td> 
-                        <p class="text-xs font-weight-bold mb-0">Jalan Delima 9 gg keluarga panam pekanbaru</p>
+                      <td style="max-width: 200px;"> 
+                        <p class="text-xs font-weight-bold mb-0 text-truncate">Jalan Delima 9 gg keluarga panam pekanbaru</p>
                       </td>
                       <td> 
                         <p class="text-xs font-weight-bold mb-0">23/01/2001</p>

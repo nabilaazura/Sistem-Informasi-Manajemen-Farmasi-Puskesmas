@@ -1,7 +1,7 @@
 
 <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-2">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
@@ -363,10 +363,10 @@
                       <h6 class="mb-1 text-dark text-sm">Happy users</h6>
                       <span class="text-xs font-weight-bold">+ 430</span>
                     </div>
-                  </div> 
+                  </div>
                   <div class="d-flex">
                     <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                  </div> 
+                  </div>
                 </li>
               </ul>
             </div>

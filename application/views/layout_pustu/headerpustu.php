@@ -44,28 +44,34 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" target="_blank">
         <img src="<?=base_url('assets/')?>./assets/img/hospital.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Loket Puskesmas</span>
+        <span class="ms-1 font-weight-bold">Puskesmas Pembantu</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="<?=base_url('Loket'); ?>">
-          <i class="fa-solid fa-house-chimney-medical d-flex align-items-center justify-content-center"></i>
+          <a class="nav-link active" href="<?=base_url('Pustu'); ?>">
+          <i class="fa-solid fa-square-plus d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Loket/getDataPendaftaran/'); ?>">
-          <i class="fa-solid fa-hospital-user d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Data Pendaftaran</span>
+          <a class="nav-link " href="<?= base_url('Pustu/getObatPustu/'); ?>">
+          <i class="fa-solid fa-capsules d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?=base_url('Loket/getDataPasien/'); ?>">
-          <i class="fa-solid fa-book-medical d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Data Pasien</span>
+          <a class="nav-link " href="<?= base_url('Pustu/getPermintaanPustu/'); ?>">
+          <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Permintaan Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="<?=base_url('Pustu/getPemasukanPustu/'); ?>">
+          <i class="fa-solid fa-kit-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Pemasukan Obat</span>
           </a>
         </li>
     </div>
