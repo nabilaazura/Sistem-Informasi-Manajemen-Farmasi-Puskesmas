@@ -28,45 +28,54 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Obat</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Satuan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan
-                    </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Stok</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pemakaian</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Masuk</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expire</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0">1</p>
+                  <?php $i = 1; ?>
+                  <?php foreach ($data_obat as $obat_pustu) : ?>
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <p class="text-xs font-weight-bold mb-0"><?= $i; ?></p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">0001</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Parasetamol</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Tablet</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">25.000</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">57</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Puskesmas</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">23/01/2024</p>
-                    </td>
-                  </tr>
-
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['kode_obat']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['nama_obat']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['satuan']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['harga']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['stok']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['tanggal_masuk']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['expire']; ?></p>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <a href="<?= base_url('Pustu/EditObat/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-success">Edit</a>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <a href="<?= base_url('Pustu/hapus/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-danger">Hapus</a>
+                      </td>
+                    </tr>
+                    <?php $i += 1; ?>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>

@@ -1,5 +1,4 @@
 <div class="container-fluid py-4">
-
   <div class="row">
     <div class="col-sm-1">
       <label for="exampleFormControlSelect1" class="text-white">Tampilkan Data</label>
@@ -32,39 +31,50 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Stok</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pemakaian</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Expire</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0">1</p>
+                  <?php $i = 1; ?>
+                  <?php foreach ($data_obat as $obat_apotek) : ?>
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <p class="text-xs font-weight-bold mb-0">1</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">0001</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Parasetamol</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Tablet</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">25.000</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">57</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Puskesmas</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">23/01/2024</p>
-                    </td>
-                  </tr>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['kode_obat']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['nama_obat']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['satuan']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['harga']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['stok']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['tanggal_masuk']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['expire']; ?></p>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <a href="<?= base_url('Apotek/EditObat/') . $obat_apotek['id_obat']; ?>" class="badge badge-sm bg-success">Edit</a>
+                      </td>
+                      <td class="align-middle text-sm">
+                        <a href="<?= base_url('Apotek/hapus/') . $obat_apotek['id_obat']; ?>" class="badge badge-sm bg-danger">Hapus</a>
+                      </td>
+                    </tr>
+                    <?php $i += 1; ?>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>

@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pasien_model extends CI_Model
+class RekamMedis_model extends CI_Model
 {
-    public $table = 'pasien';
-    public $id = 'pasien.id_pasien';
+    public $table = 'rekam_medis';
+    public $id = 'rekam_medis.id_rekammed';
     public function __construct()
     {
         parent::__construct();
@@ -15,28 +15,24 @@ class Pasien_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getById($id_pasien)
+    public function getById($id_rekammed)
     {
         $this->db->from($this->table);
-        $this->db->where('id_pasien', $id_pasien);
+        $this->db->where('id_rekammed', $id_rekammed);
         $query = $this->db->get();
         return $query->row_array();
     }
-    public function getByName()
+    public function getByIdPendaftaran($id_antrian)
     {
-        $this->db->select('nama_pasien');
-        $query = $this->db->get($this->table);
-        return $query->result_array();
+        $this->db->from($this->table);
+        $this->db->where('id_antrian', $id_antrian);
+        $query = $this->db->get();
+        return $query->row_array();
     }
+
     public function insert($data)
     {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
-    }
-    public function search_data($search_query)
-    {
-        $this->db->like('nama_pasien', $search_query);
-        $query = $this->db->get($this->table);
-        return $query->result_array();
     }
 }

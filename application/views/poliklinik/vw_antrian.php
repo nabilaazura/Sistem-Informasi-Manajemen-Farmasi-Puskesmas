@@ -26,65 +26,64 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No Pendaftaran
-                    </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No Pendaftaran</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Kelamin
-                    </th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir
-                    </th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Kelamin</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Berobat
-                    </th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rekam Medis
-                    </th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                    <th class="text-secondary opacity-7"></th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Berobat</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Poliklinik</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status Pendaftaran</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rekam Medis</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0">1</p>
+                  <?php foreach ($data_pendaftaran as $data) : ?>
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <p class="text-xs font-weight-bold mb-0">1</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">0001</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Nabila Azura</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">00178623528975</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Perempuan</p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">20/01/2001</p>
-                    </td>
-                    <td style="max-width: 200px;">
-                      <p class="text-xs font-weight-bold mb-0 text-truncate">Jalan Delima 9 gg keluarga panam pekanbaru
-                      </p>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">23/01/2001</p>
-                    </td>
-                    <td>
-                       <a class="btn btn-icon btn-3 btn-sm btn-primary" type="button"
-                        href="<?= base_url(); ?>Poliklinik/RekamMedis">
-                        <span class="btn-inner--icon"><i class="fas fa-book"></i></i></span>
-                        <span class="btn-inner--text">Rekam Medis</span>
-                      </a> 
-                    </td> 
-                    <td class="align-middle text-center text-sm">
-                      <p class="badge badge-sm bg-gradient-success">Selesai</p>
-                    </td>
-                  </tr>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['id_pendaftaran']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['nama_pasien']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['no_hp']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['jenis_kelamin']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['tanggal_lahir']; ?></p>
+                      </td>
+                      <td style="max-width: 200px;">
+                        <p class="text-xs font-weight-bold mb-0 text-truncate"><?= $data['alamat']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['tanggal_pendaftaran']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['poliklinik']; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><?= $data['status']; ?></p>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <a href="<?= base_url('Poliklinik/StatusAntrian/') . $data['id_pendaftaran']; ?>" class="badge badge-sm bg-gradient-success">Ubah Status</a>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <a href="<?= base_url('Poliklinik/RekamMedis/') . $data['id_pendaftaran'] . '/' . $data['id_pasien'] ?>" class="badge badge-sm bg-gradient-success">Rekam Medis</a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>

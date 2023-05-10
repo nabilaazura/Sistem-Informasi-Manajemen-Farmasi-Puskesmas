@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pasien_model extends CI_Model
+class Permintaan_model extends CI_Model
 {
-    public $table = 'pasien';
-    public $id = 'pasien.id_pasien';
+    public $table = 'permintaan_obat';
+    public $id = 'permintaan_obat.id_permintaan_obat';
     public function __construct()
     {
         parent::__construct();
@@ -15,28 +15,23 @@ class Pasien_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getById($id_pasien)
+    public function getById($id_permintaan_obat)
     {
         $this->db->from($this->table);
-        $this->db->where('id_pasien', $id_pasien);
+        $this->db->where('id_permintaan_obat', $id_permintaan_obat);
         $query = $this->db->get();
         return $query->row_array();
-    }
-    public function getByName()
-    {
-        $this->db->select('nama_pasien');
-        $query = $this->db->get($this->table);
-        return $query->result_array();
     }
     public function insert($data)
     {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
-    public function search_data($search_query)
+    public function updatestatus($status, $id_permintaan_obat)
     {
-        $this->db->like('nama_pasien', $search_query);
-        $query = $this->db->get($this->table);
-        return $query->result_array();
+        $this->db->set('status', $status);
+        $this->db->where('id_permintaan_obat', $id_permintaan_obat);
+        $this->db->update($this->table);
+        return $this->db->affected_rows();
     }
 }
