@@ -14,10 +14,14 @@ class Poliklinik extends CI_Controller
 
     function index()
     {
-        $data['judul'] = "Selamat Datang";
-        $this->load->view("layout_poliklinik/headerpoli");
-        $this->load->view("poliklinik/vw_dashboardpoli", $data);
-        $this->load->view("layout_poliklinik/footerpoli");
+        if ($this->session->userdata('role') == 'poliklinik') {
+            $data['judul'] = "Selamat Datang";
+            $this->load->view("layout_poliklinik/headerpoli");
+            $this->load->view("poliklinik/vw_dashboardpoli", $data);
+            $this->load->view("layout_poliklinik/footerpoli");
+        } else {
+            redirect(base_url('auth'));
+        }
     }
     function getDataAntrian()
     {
@@ -45,13 +49,8 @@ class Poliklinik extends CI_Controller
         $data['judul'] = "Rekam Medis Pasien";
         $data['id_antrian'] = $id_antrian;
         $data['id_pasien'] = $id_pasien;
+        $data['rekam_medis'] = $this->Pendaftaranpasien_model->getByIdPendaftaran($id_antrian);
 
-        $this->form_validation->set_rules('dokter', 'Dokter', 'required', [
-            'required' => 'Nama Dokter Wajib di Isi'
-        ]);
-        $this->form_validation->set_rules('poliklinik', 'Poliklinik', 'required', [
-            'required' => 'Poliklinik Wajib di Isi'
-        ]);
         $this->form_validation->set_rules('keluhan', 'Keluhan Pasien', 'required', [
             'required' => 'Keluhan Pasien Wajib di Isi'
         ]);
@@ -92,6 +91,7 @@ class Poliklinik extends CI_Controller
 
             $this->RekamMedis_model->insert($data);
             $this->Resep_model->insert($dataresep);
+            $this->Pendaftaranpasien_model->updatestatus('Sudah selesai', $this->input->post('id_antrian'));
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Rekam Medis Pasien Berhasil Ditambah!</div>');
             redirect(base_url('Poliklinik/getDataAntrian'));
         }
@@ -139,22 +139,22 @@ class Poliklinik extends CI_Controller
     //     // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Rekam Medis Pasien Berhasil Ditambah!</div>');
     //     // redirect(base_url('Poliklinik/getDataAntrian'));
     // }
-    function StatusAntrian($id_pendaftaran)
-    {
-        $data['judul'] = "Selamat Datang";
-        $data['data'] = $this->Pendaftaranpasien_model->getById($id_pendaftaran);
-        $this->load->view("layout_poliklinik/headerpoli");
-        $this->load->view("poliklinik/vw_statusantrian", $data);
-        $this->load->view("layout_poliklinik/footerpoli");
-    }
-    function ubahStatus()
-    {
-        $id_pendaftaran = $this->input->post('id_pendaftaran');
-        $statusbaru =  $this->input->post('status');
-        $this->Pendaftaranpasien_model->updatestatus($statusbaru, $id_pendaftaran);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status Berhasil Diubah</div>');
-        redirect(base_url('Poliklinik/getDataAntrian'));
-    }
+    // function StatusAntrian($id_pendaftaran)
+    // {
+    //     $data['judul'] = "Selamat Datang";
+    //     $data['data'] = $this->Pendaftaranpasien_model->getById($id_pendaftaran);
+    //     $this->load->view("layout_poliklinik/headerpoli");
+    //     $this->load->view("poliklinik/vw_statusantrian", $data);
+    //     $this->load->view("layout_poliklinik/footerpoli");
+    // }
+    // function ubahStatus()
+    // {
+    //     $id_pendaftaran = $this->input->post('id_pendaftaran');
+    //     $statusbaru =  $this->input->post('status');
+    //     $this->Pendaftaranpasien_model->updatestatus($statusbaru, $id_pendaftaran);
+    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status Berhasil Diubah</div>');
+    //     redirect(base_url('Poliklinik/getDataAntrian'));
+    // }
     function saveResep()
     {
         $data['judul'] = "Resep Pasien";

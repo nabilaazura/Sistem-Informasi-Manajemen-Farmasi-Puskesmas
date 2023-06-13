@@ -60,6 +60,8 @@
     //   "GFG",
     // ];
 
+    console.log(namaPasien);
+
     // jQuery inbuilt function
     $("#autocomplete").autocomplete({
       source: namaPasien,
@@ -114,6 +116,25 @@
   });
 </script> -->
 
+<script>
+  $("#poliklinik").change(function() {
+    $('#dokter').prop('disabled', false);
+    var poli = $("#poliklinik").val();
+
+    if (poli === "Poliklinik Umum") {
+      $('#dokter').html('<option value="Dokter Ida">Dokter Ida</option><option value="Dokter Ani">Dokter Ani</option>');
+    } else if (poli === "Usila") {
+      $('#dokter').html('<option value="Dokter Baru">Dokter Baru</option><option value="Dokter Rui">Dokter Rui</option>');
+    } else if (poli === "Poliklinik Anak") {
+      $('#dokter').html('<option value="Dokter RRR">Dokter RRR</option><option value="Dokter BBB">Dokter BBB</option>');
+    } else if (poli === "Poliklinik Gigi") {
+      $('#dokter').html('<option value="Dokter Fia">Dokter Fia</option><option value="Dokter Dio">Dokter Dio</option>');
+    } else if (poli === "KIA") {
+      $('#dokter').html('<option value="Dokter Gea">Dokter Gea</option><option value="Dokter 2">Dokter 2</option>');
+    }
+  });
+</script>
+
 <!--   Core JS Files   -->
 <script src="<?= base_url('assets/') ?>./assets/js/core/popper.min.js"></script>
 <script src="<?= base_url('assets/') ?>./assets/js/core/bootstrap.min.js"></script>
@@ -128,6 +149,15 @@
     }
     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
   }
+</script>
+<!-- bootstrap5 dataTables js cdn -->
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#datatable').DataTable();
+  });
 </script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>

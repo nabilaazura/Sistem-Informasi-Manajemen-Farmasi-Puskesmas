@@ -9,20 +9,21 @@
                     </div>
                     <div class="card-body p-3">
                         <form method="POST" action="">
+                            <input type="hidden" name="id_obat" />
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Kode</label>
-                                <input name="kode_obat" class="form-control" type="text" placeholder="Kode Obat" id="example-text-input">
-                                <?= form_error('kode_obat', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="example-date-input" class="form-control-label">Nama Obat</label>
+                                <div class="input-group mb-4">
+                                    <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                                    <input name="nama_obat" id="autocomplete" class="form-control" placeholder="Cari Obat" type="text">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Nama Obat</label>
-                                <input name="nama_obat" class="form-control" type="text" placeholder="Nama Obat" id="example-text-input">
-                                <?= form_error('nama_obat', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="example-text-input" class="form-control-label">Kode</label>
+                                <input name="kode_obat" class="form-control" type="text" placeholder="Kode Obat" id="kode_obat">
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Satuan/Kemasan</label>
-                                <input name="satuan" class="form-control" type="text" placeholder="Satuan/Kemasan" id="example-text-input">
-                                <?= form_error('satuan', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <input name="satuan" class="form-control" type="text" placeholder="Satuan/Kemasan" id="satuan">
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Permintaan</label>
@@ -31,11 +32,7 @@
                                     <option>Puskesmas Pembantu</option>
                                     <option>PONED</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-date-input" class="form-control-label">Tanggal Permintaan</label>
-                                <input name="tanggal_permintaan" class="form-control" type="date" id="example-date-input">
-                                <?= form_error('date', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <?= form_error('permintaan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Jumlah Permintaan</label>

@@ -26,20 +26,20 @@
                                 <?= form_error('satuan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
-                                <label for="harga" class="form-control-label">Harga Satuan</label>
-                                <input name="harga" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
-                                <?= form_error('harga', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="harga_satuan" class="form-control-label">Harga Satuan</label>
+                                <input name="harga_satuan" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
+                                <?= form_error('harga_satuan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
-                                <label for="stok" class="form-control-label">Stok</label>
-                                <input name="stok" class="form-control" type="text" placeholder="Stok" id="example-text-input">
-                                <?= form_error('stok', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
+                                <input name="jumlah_masuk" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
+                                <?= form_error('jumlah_masuk', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="tanggal_masuk" class="form-control-label">Tanggal Masuk</label>
                                 <input name="tanggal_masuk" class="form-control" type="date" id="example-date-input">
                                 <?= form_error('tanggal_masuk', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="expire" class="form-control-label">Expire</label>
                                 <input name="expire" class="form-control" type="date" id="example-date-input">

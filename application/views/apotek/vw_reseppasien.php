@@ -17,13 +17,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 1; ?>
                                 <?php foreach ($resep as $data) : ?>
-                                    <?php $no = 1; ?>
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <p class="text-xs font-weight-bold mb-0"><?= $no++; ?></p>
+                                                    <p class="text-xs font-weight-bold mb-0"><?= $i; ?></p>
                                                 </div>
                                             </div>
                                         </td>
@@ -37,6 +37,7 @@
                                             <a href="<?= base_url('apotek/detailResep/') . $data['id_pendaftaran']; ?>" class="badge badge-sm bg-gradient-success">Detail</a>
                                         </td>
                                     </tr>
+                                    <?php $i += 1; ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>

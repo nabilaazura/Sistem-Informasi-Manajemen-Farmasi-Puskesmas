@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
 
   <div class="row">
-    <div class="col-sm-1">
+    <!-- <div class="col-sm-1">
       <label for="exampleFormControlSelect1" class="text-white">Tampilkan Data</label>
     </div>
     <div class="col-sm-1">
@@ -12,7 +12,7 @@
           <option>3</option>
         </select>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="row">
     <div class="col-12">
@@ -21,8 +21,8 @@
           <h6>Data Pasien</h6>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
-          <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
+          <div class="table-responsive p-3">
+            <table id="datatable" class="table align-items-center mb-0 stripe" style="width:100%">
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>

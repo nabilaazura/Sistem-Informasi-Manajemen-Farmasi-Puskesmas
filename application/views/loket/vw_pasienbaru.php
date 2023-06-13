@@ -9,11 +9,11 @@
                         <h5 class="text-capitalize">Formulir Pendaftaran Pasien</h5>
                     </div>
                     <div class="card-body p-3">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="tanggal_registrasi" class="form-control-label">Tanggal Registrasi</label>
                             <input class="form-control" type="date" id="example-date-input">
                             <?= form_error('tanggal_registrasi', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </div>
+                        </div> -->
                         <input type="hidden" name="id_pasien" />
                         <div class="form-group">
                             <label for="nama_pasien" class="form-control-label">Nama Pasien</label>

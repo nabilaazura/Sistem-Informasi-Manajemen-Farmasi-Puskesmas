@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label for="nama_obat" class="form-control-label">Nama Obat</label>
                             <input name="nama_obat" class="form-control" type="text" placeholder="Nama Obat" id="example-text-input">
-                            <?= form_error('kode_obat', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <?= form_error('nama_obat', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
                             <label for="satuan" class="form-control-label">Satuan/Kemasan</label>
@@ -25,19 +25,14 @@
                             <?= form_error('satuan', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
-                            <label for="harga" class="form-control-label">Harga Satuan</label>
-                            <input name="harga" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
-                            <?= form_error('harga', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="harga_satuan" class="form-control-label">Harga Satuan</label>
+                            <input name="harga_satuan" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
+                            <?= form_error('harga_satuan', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
-                            <label for="stok" class="form-control-label">Stok</label>
-                            <input name="stok" class="form-control" type="text" placeholder="Stok" id="example-text-input">
-                            <?= form_error('stok', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="pemakaian" class="form-control-label">Pemakaian</label>
-                            <input name="pemakaian" class="form-control" type="text" placeholder="Pemakaian" id="example-text-input">
-                            <?= form_error('pemakaian', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
+                            <input name="jumlah_masuk" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
+                            <?= form_error('jumlah_masuk', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
                             <label for="expire" class="form-control-label">Tanggal Expire</label>

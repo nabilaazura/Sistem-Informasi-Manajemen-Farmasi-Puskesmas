@@ -9,6 +9,7 @@
                 <div class="card-body p-3">
                     <form method="POST" action="<?= base_url('GudangFarmasi/ubahStatusPermintaan'); ?>">
                         <input type="hidden" name="id_permintaan_obat" value="<?= $data_permintaan['id_permintaan_obat']; ?>" />
+                        <input type="hidden" name="id_user_puskesmas" value="<?= $data_permintaan['id_user_puskesmas']; ?>" />
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Kode</label>
                             <input name="kode_obat" type="text" value="<?= $data_permintaan['kode_obat']; ?>" placeholder="Kode" class="form-control form-control-alternative" disabled />
@@ -36,7 +37,6 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Status Permintaan</label>
                             <select name="status" class="form-control" placeholder="Status Permintaan" id="exampleFormControlSelect1">
-                                <option>Diproses</option>
                                 <option>Bisa Dijemput</option>
                                 <option>Selesai</option>
                             </select>

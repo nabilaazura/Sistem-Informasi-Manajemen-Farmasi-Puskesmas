@@ -10,20 +10,12 @@
                         <input type="hidden" name="id_pasien" value="<?= $id_pasien; ?>" />
                         <input type="hidden" name="id_antrian" value="<?= $id_antrian; ?>" />
                         <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Dokter</label>
-                            <input name="dokter" class="form-control" type="text" placeholder="Dokter" id="example-text-input" required>
-                            <?= form_error('dokter', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="example-text-input" class="form-control-label">Poliklinik</label>
+                            <input name="poliklinik" type="text" value="<?= $rekam_medis['poliklinik']; ?>" placeholder="Poliklinik" class="form-control form-control-alternative" />
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Poliklinik</label>
-                            <select name="poliklinik" class="form-control" id="exampleFormControlSelect1" required>
-                                <option>Poliklinik Umum</option>
-                                <option>Usila</option>
-                                <option>Poliklinik Anak</option>
-                                <option>Poliklinik Gigi</option>
-                                <option>KIA</option>
-                            </select>
-                            <?= form_error('poliklinik', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="example-text-input" class="form-control-label">Dokter</label>
+                            <input name="dokter" type="text" value="<?= $rekam_medis['dokter']; ?>" placeholder="Dokter" class="form-control form-control-alternative" />
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Keluhan Pasien</label>

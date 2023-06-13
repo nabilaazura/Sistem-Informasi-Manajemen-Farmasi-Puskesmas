@@ -8,11 +8,11 @@
                 </div>
                 <div class="card-body p-3">
                     <form action="<?= base_url('Loket/antrianPasien'); ?>" method="POST">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="tanggal_pendaftaran" class="form-control-label">Tanggal Pendaftaran</label>
                             <input name="tanggal_pendaftaran" class="form-control" type="date" id="tanggal_pendaftaran" required>
                             <?= form_error('tanggal_pendaftaran', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="example-date-input" class="form-control-label">Nama Pasien</label>
                             <div class="input-group mb-4">
@@ -43,12 +43,18 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Poliklinik</label>
-                            <select name="poliklinik" class="form-control" id="exampleFormControlSelect1" required>
+                            <select id="poliklinik" name="poliklinik" class="form-control" id="exampleFormControlSelect1" required>
                                 <option value="Poliklinik Umum">Poliklinik Umum</option>
                                 <option value="Usila">Usila</option>
                                 <option value="Poliklinik Anak">Poliklinik Anak</option>
                                 <option value="Poliklinik Gigi">Poliklinik Gigi</option>
                                 <option value="KIA">KIA</option>
+                            </select>
+                            <?= form_error('poliklinik', '<small class="text-danger pl-3">', '</small>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Dokter</label>
+                            <select id="dokter" name="dokter" class="form-control" id="exampleFormControlSelect1" required disabled>
                             </select>
                             <?= form_error('poliklinik', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>

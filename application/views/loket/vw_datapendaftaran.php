@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-sm-1">
-      <label for="exampleFormControlSelect1" class="text-white">Tampilkan Data</label>
+      <!-- <label for="exampleFormControlSelect1" class="text-white">Tampilkan Data</label>
     </div>
     <div class="col-sm-1">
       <div class="form-group">
@@ -10,20 +10,22 @@
           <option>2</option>
           <option>3</option>
         </select>
-      </div>
+      </div> -->
     </div>
-    <div class="col-sm-7"></div>
+    <!-- <div class="col-sm-7"> -->
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
             <a href="<?= base_url(); ?>Loket/pendaftaranPasien" class="btn btn-primary float-end ml-3" style="margin-left: 10px;">Pasien Baru</a>
             <a href="<?= base_url(); ?>Loket/cariPasien" class="btn btn-outline-primary float-end ml-3 ps-3">Pasien Lama</a>
+            <!-- <div class="row"> -->
+            <!-- <div class="col-8"> -->
             <h6>Data Pendaftaran Pasien</h6>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
+            <div class="table-responsive p-3">
+              <table id="datatable" class="table align-items-center mb-0 stripe" style="width:100%">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
@@ -37,7 +39,6 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No HP</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Poliklinik</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status Pendaftaran</th>
-                    <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -92,5 +93,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 </a>

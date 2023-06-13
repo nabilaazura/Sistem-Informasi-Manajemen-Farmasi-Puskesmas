@@ -43,6 +43,7 @@ class Loket extends CI_Controller
         $this->load->view("layout_loket/header");
         $this->load->view("loket/vw_datapendaftaran", $data);
         $this->load->view("layout_loket/footer");
+        $this->load->database();
     }
     function getDataPasien()
     {
@@ -101,7 +102,7 @@ class Loket extends CI_Controller
         $data['results'] = $this->Pasien_model->get();
         $this->load->view("layout_loket/header");
         $this->load->view("loket/vw_pasienlama", $data);
-        $this->load->view("layout_loket/footer");
+        $this->load->view("layout_loket/footer2");
     }
 
     // function search()
@@ -149,9 +150,10 @@ class Loket extends CI_Controller
         $idPasien = $this->input->post('id_pasien');
 
         $data = [
-            'tanggal_pendaftaran' => $this->input->post('tanggal_pendaftaran'),
+            'tanggal_pendaftaran' => $now,
             'id_pasien' => $this->input->post('id_pasien'),
             'poliklinik' => $this->input->post('poliklinik'),
+            'dokter' => $this->input->post('dokter'),
             'status' => "Menunggu",
         ];
         $this->Pendaftaranpasien_model->insert($data);

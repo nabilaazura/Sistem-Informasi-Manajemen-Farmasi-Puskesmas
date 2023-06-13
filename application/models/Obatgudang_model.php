@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Obatgudang_model extends CI_Model
 {
     public $table = 'obat';
-    public $id = 'obat.id';
+    public $id = 'obat.id_obat';
     public function __construct()
     {
         parent::__construct();
@@ -27,4 +27,24 @@ class Obatgudang_model extends CI_Model
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
+    public function update($where, $data)
+    {
+        $this->db->update($this->table, $data, $where);
+        return $this->db->affected_rows();
+    }
+    public function delete($id_obat)
+    {
+        $this->db->where($this->id, $id_obat);
+        $this->db->delete($this->table);
+        return $this->db->affected_rows();
+    }
+    // public function sortPermintaan()
+    // {
+    //     $query = $this->db->select('*')
+    //         ->from('permintaan_obat')
+    //         ->order_by('tanggal_permintaan', 'desc')
+    //         ->get();
+
+    //     $result = $query->result();
+    // }
 }

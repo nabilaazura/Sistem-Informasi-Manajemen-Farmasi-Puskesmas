@@ -1,24 +1,26 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Obatapotek_model extends CI_Model
+class Laporanponed_model extends CI_Model
 {
-    public $table = 'obat_apotek';
-    public $id = 'obat_apotek.id_obat';
+    public $table = 'laporan_poned';
+    public $id = 'laporan_poned.id_laporan_poned';
     public function __construct()
     {
         parent::__construct();
     }
     public function get()
     {
-        $this->db->from($this->table);
+        $this->db->select('id_laporan_poned, kode_obat, nama_obat, satuan, stok_awal, masuk, pemakaian, ed, sisa_stok');
+        $this->db->from('laporan_poned, obat_poned');
+        $this->db->where('laporan_poned.id_obat = obat_poned.id_obat');
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getById($id_obat)
+    public function getById($id_laporan_poned)
     {
         $this->db->from($this->table);
-        $this->db->where('id_obat', $id_obat);
+        $this->db->where('id_laporan_poned', $id_laporan_poned);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -36,11 +38,6 @@ class Obatapotek_model extends CI_Model
     {
         $this->db->where($this->id, $id_obat);
         $this->db->delete($this->table);
-        return $this->db->affected_rows();
-    }
-    public function updateStok($id_obat, $stok)
-    {
-        $this->db->update($this->table, ['jumlah_masuk' => $stok], ['id_obat' => $id_obat]);
         return $this->db->affected_rows();
     }
 }

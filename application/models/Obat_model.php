@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Obatapotek_model extends CI_Model
+class Obat_model extends CI_Model
 {
-    public $table = 'obat_apotek';
-    public $id = 'obat_apotek.id_obat';
+    public $table = 'obat';
+    public $id = 'obat.id_obat';
     public function __construct()
     {
         parent::__construct();
@@ -36,11 +36,6 @@ class Obatapotek_model extends CI_Model
     {
         $this->db->where($this->id, $id_obat);
         $this->db->delete($this->table);
-        return $this->db->affected_rows();
-    }
-    public function updateStok($id_obat, $stok)
-    {
-        $this->db->update($this->table, ['jumlah_masuk' => $stok], ['id_obat' => $id_obat]);
         return $this->db->affected_rows();
     }
 }

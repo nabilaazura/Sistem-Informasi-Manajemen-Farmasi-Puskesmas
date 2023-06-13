@@ -20,10 +20,6 @@
                             <input class="form-control" type="text" placeholder="Satuan" id="example-text-input">
                         </div>
                         <div class="form-group">
-                            <label for="example-date-input" class="form-control-label">Tanggal Pemasukan</label>
-                            <input class="form-control" type="date" id="example-date-input">
-                        </div>
-                        <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Jumlah Yang Diserahkan</label>
                             <input class="form-control" type="text" placeholder="Jumlah Yang Diserahkan" id="example-text-input">
                         </div>

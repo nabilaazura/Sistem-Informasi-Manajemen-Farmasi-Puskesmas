@@ -21,17 +21,17 @@
                             <input name="satuan" value="<?= $obat_pustu['satuan']; ?>" class="form-control" type="text" placeholder="Satuan/Kemasan" id="example-text-input">
                         </div>
                         <div class="form-group">
-                            <label for="harga" class="form-control-label">Harga Satuan</label>
-                            <input name="harga" value="<?= $obat_pustu['harga']; ?>" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
+                            <label for="harga_satuan" class="form-control-label">Harga Satuan</label>
+                            <input name="harga_satuan" value="<?= $obat_pustu['harga_satuan']; ?>" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
                         </div>
                         <div class="form-group">
-                            <label for="stok" class="form-control-label">Stok</label>
-                            <input name="stok" value="<?= $obat_pustu['stok']; ?>" class="form-control" type="text" placeholder="Stok" id="example-text-input">
+                            <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
+                            <input name="jumlah_masuk" value="<?= $obat_pustu['jumlah_masuk']; ?>" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="tanggal_masuk" class="form-control-label">Tanggal Masuk</label>
                             <input name="tanggal_masuk" value="<?= $obat_pustu['tanggal_masuk']; ?>" class="form-control" type="date" id="example-date-input">
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="expire" class="form-control-label">Expire</label>
                             <input name="expire" value="<?= $obat_pustu['expire']; ?>" class="form-control" type="date" id="example-date-input">
