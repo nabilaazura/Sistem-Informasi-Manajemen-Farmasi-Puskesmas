@@ -46,20 +46,6 @@
       namaPasien.push(element['nama_pasien']);
     });
 
-    // var items = [
-    //   "C++",
-    //   "Java",
-    //   "Python",
-    //   "C#",
-    //   "DSA",
-    //   "STL",
-    //   "Self Placed",
-    //   "Android",
-    //   "Kotlin",
-    //   "GeeksforGeeks",
-    //   "GFG",
-    // ];
-
     console.log(namaPasien);
 
     // jQuery inbuilt function
@@ -86,35 +72,6 @@
     });
   });
 </script>
-<!-- <script>
-  $(document).ready(function() {
-    $('#search_query').on('input', function() {
-      var search_query = $(this).val();
-
-      $.ajax({
-        url: '<?= base_url('Loket/search'); ?>',
-        type: 'get',
-        dataType: "json",
-        data: {
-          search_query: search_query
-        },
-        success: function(response) {
-          var jsonString = JSON.stringify(response);
-          var listPasien = "<ul>";
-
-          $.each(response, function(index, item) {
-            listPasien += "<li><a href='#'>" + item.nama_pasien + "</a></li>";
-            console.log(item.nama_pasien);
-          });
-
-          listPasien += "</ul>";
-
-          $('#suggestions').html(listPasien);
-        }
-      });
-    });
-  });
-</script> -->
 
 <script>
   $("#poliklinik").change(function() {
@@ -156,7 +113,9 @@
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#datatable').DataTable();
+    $('#datatable').DataTable({
+      scrollX: true,
+    });
   });
 </script>
 <!-- Github buttons -->

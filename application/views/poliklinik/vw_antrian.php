@@ -77,7 +77,11 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $data['status']; ?></p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <a href="<?= base_url('Poliklinik/RekamMedis/') . $data['id_pendaftaran'] . '/' . $data['id_pasien'] ?>" class="badge badge-sm bg-gradient-success">Rekam Medis</a>
+                        <?php if ($data['status'] != 'Sudah selesai') { ?>
+                          <a href="<?= base_url('Poliklinik/RekamMedis/') . $data['id_pendaftaran'] . '/' . $data['id_pasien'] ?>" class="badge badge-sm bg-gradient-warning">Rekam Medis</a>
+                        <?php } else { ?>
+                          <a href="#" class="badge badge-sm bg-gradient-success">Rekam Medis</a>
+                        <?php } ?>
                       </td>
                     </tr>
                     <?php $i += 1; ?>

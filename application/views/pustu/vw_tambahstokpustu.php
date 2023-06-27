@@ -7,14 +7,14 @@
                 </div>
                 <div class="card-body p-3">
                     <form action="" method="POST">
-                        <input type="hidden" name="id_obat" value="<?= $obat_apotek['id_obat']; ?>">
+                        <input type="hidden" name="id_obat" value="<?= $obat_pustu['id_obat']; ?>">
                         <div class="form-group">
                             <label for="stok" class="form-control-label">Jumlah Masuk</label>
                             <input name="jumlah_masuk" class="form-control" type="number" placeholder="Jumlah Masuk" id="example-text-input">
                         </div>
                         <div class="col-sm-7"></div>
                         <div class="col-sm-2 float-end">
-                            <a href="<?= base_url('Apotek/getObatApotek') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
+                            <a href="<?= base_url('Pustu/getObatPustu') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
                             <button type="submit" class="btn bg-gradient-primary" style="background-color: white;">Simpan</button>
                         </div>
                     </form>

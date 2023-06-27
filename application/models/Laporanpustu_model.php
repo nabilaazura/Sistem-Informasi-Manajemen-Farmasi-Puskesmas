@@ -11,9 +11,11 @@ class Laporanpustu_model extends CI_Model
     }
     public function get()
     {
-        $this->db->select('id_laporan_pustu, kode_obat, nama_obat, satuan, stok_awal, masuk, pemakaian, ed, sisa_stok');
+        $this->db->select('obat_pustu.nama_obat, SUM(stok_awal) AS "stok_awal", SUM(masuk) AS "masuk", SUM(pemakaian) AS "pemakaian", SUM(ed) AS "ed", SUM(sisa_stok) AS "sisa_stok"');
         $this->db->from('laporan_pustu, obat_pustu');
         $this->db->where('laporan_pustu.id_obat = obat_pustu.id_obat');
+        $this->db->where('laporan_pustu.id_laporan_pustu IN (SELECT MAX(id_laporan_pustu) FROM laporan_pustu GROUP BY id_obat)');
+        $this->db->group_by('obat_pustu.nama_obat');
         $query = $this->db->get();
         return $query->result_array();
     }

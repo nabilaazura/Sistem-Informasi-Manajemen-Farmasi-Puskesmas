@@ -76,15 +76,27 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('GudangFarmasi/getPemasukan/'); ?>">
+          <a class="nav-link " href="<?= base_url('GudangFarmasi/getPengeluaranGudang'); ?>">
+            <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Pengeluaran Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="<?= base_url('GudangFarmasi/getPengadaan/'); ?>">
             <i class="fa-solid fa-kit-medical d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Pemasukan Obat</span>
+            <span class="nav-link-text ms-3">Pengadaan Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="<?= base_url('GudangFarmasi/getLaporanGudang'); ?>">
+            <i class="fa-solid fa-notes-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Laporan Obat</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="<?= base_url('GudangFarmasi/getLaporan/'); ?>">
             <i class="fa-solid fa-book-medical d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Laporan</span>
+            <span class="nav-link-text ms-3">LPLPO</span>
           </a>
         </li>
     </div>

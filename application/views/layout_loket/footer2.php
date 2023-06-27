@@ -46,20 +46,6 @@
             namaPasien.push(element['nama_pasien']);
         });
 
-        // var items = [
-        //   "C++",
-        //   "Java",
-        //   "Python",
-        //   "C#",
-        //   "DSA",
-        //   "STL",
-        //   "Self Placed",
-        //   "Android",
-        //   "Kotlin",
-        //   "GeeksforGeeks",
-        //   "GFG",
-        // ];
-
         console.log(namaPasien);
 
         // jQuery inbuilt function

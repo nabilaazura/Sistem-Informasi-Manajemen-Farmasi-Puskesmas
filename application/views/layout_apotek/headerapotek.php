@@ -74,6 +74,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link " href="<?= base_url('Apotek/getPengeluaranApotek/'); ?>">
+            <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Pengeluaran Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link " href="<?= base_url('Apotek/resepPasien/'); ?>">
             <i class="fa-solid fa-receipt d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Resep</span>

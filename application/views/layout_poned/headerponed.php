@@ -57,26 +57,32 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active">
-            <i class="fa-solid fa-square-plus d-flex align-items-center justify-content-center"></i>
+            <i class="fa-solid fa-house-chimney-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/getObatPoned/'); ?>">
+          <a class="nav-link " href="<?= base_url('Poned/getObatPoned'); ?>">
             <i class="fa-solid fa-capsules d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/getPermintaanPoned/'); ?>">
+          <a class="nav-link " href="<?= base_url('Poned/getPengeluaranPoned'); ?>">
+            <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Pengeluaran Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="<?= base_url('Poned/getPermintaanPoned'); ?>">
             <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Permintaan Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/laporanPoned/'); ?>">
-            <i class="fa-solid fa-kit-medical d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Laporan Poned</span>
+          <a class="nav-link " href="<?= base_url('Poned/laporanPoned'); ?>">
+            <i class="fa-solid fa-notes-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Laporan Obat</span>
           </a>
         </li>
     </div>

@@ -68,9 +68,37 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $permintaan_obat['status']; ?></p>
                       </td>
                       <td class="align-middle text-sm">
-                        <a href="<?= base_url('GudangFarmasi/DetailPermintaan/') . $permintaan_obat['id_permintaan_obat']; ?>" class="badge badge-sm bg-gradient-success">Detail</a>
+                        <a class="badge badge-sm bg-primary" data-bs-toggle="modal" data-bs-target="#exampleModalMessage<?= $permintaan_obat['id_permintaan_obat']; ?>">Ubah Status</a> &nbsp;
                       </td>
                     </tr>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalMessage<?= $permintaan_obat['id_permintaan_obat']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Status Permintaan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="<?= base_url('GudangFarmasi/ubahStatusPermintaan'); ?>" method="post">
+                              <input type="hidden" name="id_permintaan_obat" value="<?= $permintaan_obat['id_permintaan_obat']; ?>" />
+                              <input type="hidden" name="id_user_puskesmas" value="<?= $permintaan_obat['id_user_puskesmas'];; ?>" />
+                              <select name="status" class="form-control">
+                                <option value="Bisa Dijemput">Bisa Dijemput</option>
+                                <option value="Selesai">Selesai</option>
+                              </select>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <?php $i += 1; ?>
                   <?php endforeach; ?>
                 </tbody>

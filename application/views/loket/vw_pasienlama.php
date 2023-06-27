@@ -14,32 +14,32 @@
                             <?= form_error('tanggal_pendaftaran', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div> -->
                         <div class="form-group">
-                            <label for="example-date-input" class="form-control-label">Nama Pasien</label>
-                            <div class="input-group mb-4">
+                            <label for="example-date-input">Nama Pasien</label>
+                            <div class="input-group">
                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                                 <input name="nama_pasien" id="autocomplete" class="form-control" placeholder="Cari Pasien" type="text">
                             </div>
                         </div>
                         <input type="hidden" id="id_pasien" name="id_pasien" value="" />
                         <div class="form-group">
-                            <label for="nik" class="form-control-label">NIK</label>
-                            <input name="nik" value="" id="nik" type="text" placeholder="NIK" class="form-control form-control-alternative" />
+                            <label for="nik">NIK</label>
+                            <input name="nik" value="" id="nik" type="text" placeholder="NIK" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
-                            <label for="jenis_kelamin" class="form-control-label">Jenis Kelamin</label>
-                            <input name="jenis_kelamin" id="jenis_kelamin" type="text" placeholder="Jenis Kelamin" class="form-control form-control-alternative" />
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <input name="jenis_kelamin" id="jenis_kelamin" type="text" placeholder="Jenis Kelamin" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir</label>
-                            <input name="tanggal_lahir" id="tanggal_lahir" type="text" placeholder="Tanggal Lahir" class="form-control form-control-alternative" />
+                            <label for="tanggal_lahir">Tanggal Lahir</label>
+                            <input name="tanggal_lahir" id="tanggal_lahir" type="text" placeholder="Tanggal Lahir" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
-                            <label for="no_hp" class="form-control-label">No HP</label>
-                            <input name="no_hp" id="no_hp" type="text" placeholder="No HP" class="form-control form-control-alternative" />
+                            <label for="no_hp">No HP</label>
+                            <input name="no_hp" id="no_hp" type="text" placeholder="No HP" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
-                            <label for="alamat" class="form-control-label">Alamat</label>
-                            <input name="alamat" id="alamat" type="text" placeholder="Alamat" class="form-control form-control-alternative" />
+                            <label for="alamat">Alamat</label>
+                            <input name="alamat" id="alamat" type="text" placeholder="Alamat" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Poliklinik</label>

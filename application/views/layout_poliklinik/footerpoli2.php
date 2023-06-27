@@ -6,6 +6,12 @@
                     © <script>
                         document.write(new Date().getFullYear())
                     </script>,
+                    <!-- Core -->
+                    <script src="../assets/js/core/popper.min.js"></script>
+                    <script src="../assets/js/core/bootstrap.min.js"></script>
+
+                    <!-- Theme JS -->
+                    <script src="../assets/js/argon-dashboard.min.js"></script>
                     made with <i class="fa fa-heart"></i> by
                     <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
                     for a better web.
@@ -31,17 +37,16 @@
     </div>
 </footer>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 <!--   Core JS Files   -->
 <script src="<?= base_url('assets/') ?>./assets/js/core/popper.min.js"></script>
 <script src="<?= base_url('assets/') ?>./assets/js/core/bootstrap.min.js"></script>
 <script src="<?= base_url('assets/') ?>./assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="<?= base_url('assets/') ?>./assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="<?= base_url('assets/') ?>./assets/js/plugins/chartjs.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -55,71 +60,22 @@
 <script>
     $(document).ready(function() {
         // Array of items.
-        var jsonData = '<?php echo json_encode($results); ?>';
-        var listData = JSON.parse(jsonData);
-
-        var namaObat = [];
-        listData.forEach(element => {
-            namaObat.push(element['nama_obat']);
-        });
-
-        // var items = [
-        //   "C++",
-        //   "Java",
-        //   "Python",
-        //   "C#",
-        //   "DSA",
-        //   "STL",
-        //   "Self Placed",
-        //   "Android",
-        //   "Kotlin",
-        //   "GeeksforGeeks",
-        //   "GFG",
-        // ];
-
-        console.log(namaObat);
-
-        // jQuery inbuilt function
-        $("#autocomplete").autocomplete({
-            source: namaObat,
-            select: function(event, ui) {
-                var dataObat;
-
-                listData.forEach(element => {
-                    if (element['nama_obat'] == ui.item.value) {
-                        dataObat = element;
-                    }
-                });
-
-                console.log(dataObat);
-                $("#id_obat").val(dataObat['id_obat']);
-                $("#nama_obat").val(dataObat['nama_obat']);
-                $("#kode_obat").val(dataObat['kode_obat']);
-                $("#satuan").val(dataObat['satuan']);
-
-            }
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        // Array of items.
         var jsonData = '<?php echo json_encode($results_baru); ?>';
         var listData = JSON.parse(jsonData);
 
-        console.log(listData);
-
-        var namaObat = [];
+        var nama_obat = [];
         listData.forEach(element => {
-            namaObat.push(element['nama_obat']);
+            nama_obat.push(element['nama_obat']);
         });
 
+        console.log(nama_obat);
+
         // jQuery inbuilt function
-        $("#autocomplete2").autocomplete({
-            source: namaObat,
+        $("#nama_obat").autocomplete({
+            source: nama_obat,
             select: function(event, ui) {
                 var dataObat;
+
                 listData.forEach(element => {
                     if (element['nama_obat'] == ui.item.value) {
                         dataObat = element;
@@ -127,10 +83,6 @@
                 });
 
                 console.log(dataObat);
-                $("#nama_obat").val(dataObat['nama_obat']);
-                $("#kode_obat").val(dataObat['kode_obat']);
-                $("#jumlah_lama").val(dataObat['stok']);
-                $("#satuan").val(dataObat['satuan']);
                 $("#stok").html('Stok: ' + dataObat['stok']);
             }
         });
@@ -138,22 +90,32 @@
 </script>
 
 <script>
-    $("#status_pengeluaran").change(function() {
-        var status = $("#status_pengeluaran").val();
+    $(document).ready(function() {
+        // Listen for keyup events on the input fields
+        $('#nama_obat, #keterangan').keyup(function() {
+            // Check if both inputs have values
+            if ($('#nama_obat').val() !== '' && $('#keterangan').val() !== '') {
+                // Enable the button
+                $('#btn_tambah_resep').prop('disabled', false);
+            } else {
+                // Disable the button
+                $('#btn_tambah_resep').prop('disabled', true);
+            }
+        });
 
-        if (status === "permintaan_poned") {
-            $('#jumlah_keluar').show();
-            $('#keperluan').show();
+        $('#btn_tambah_resep').click(function() {
+            const namaObat = $('#nama_obat').val();
+            const keterangan = $('#keterangan').val();
 
-            $('#input_jumlah_keluar').prop('required', true);
-            $('#input_keperluan').prop('required', true);
-        } else if (status === "obat_expire") {
-            $('#jumlah_keluar').hide();
-            $('#keperluan').hide();
+            // Get old resep
+            var resep = $('#resep_obat').val();
+            resep += namaObat + " (" + keterangan + "); ";
+            $('#resep_obat').val(resep);
 
-            $('#input_jumlah_keluar').removeAttr('required');
-            $('#input_keperluan').removeAttr('required');
-        }
+            // Clear input text
+            $('#nama_obat').val('');
+            $('#keterangan').val('');
+        });
     });
 </script>
 

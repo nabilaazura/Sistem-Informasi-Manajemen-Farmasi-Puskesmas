@@ -55,7 +55,38 @@
 <script>
     $(document).ready(function() {
         // Array of items.
-        var jsonData = '<?php echo json_encode($results); ?>';
+        var jsonData = '<?php echo json_encode($results_baru); ?>';
+        var listData = JSON.parse(jsonData);
+        var namaObat = [];
+
+        listData.forEach(element => {
+            namaObat.push(element['nama_obat']);
+        });
+
+        // jQuery inbuilt function
+        $("#autocomplete").autocomplete({
+            source: namaObat,
+            select: function(event, ui) {
+                var dataObat;
+                listData.forEach(element => {
+                    if (element['nama_obat'] == ui.item.value) {
+                        dataObat = element;
+                    }
+                });
+
+                $("#id_obat").val(dataObat['id_obat']);
+                $("#nama_obat").val(dataObat['nama_obat']);
+                $("#kode_obat").val(dataObat['kode_obat']);
+                $("#satuan").val(dataObat['satuan']);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Array of items.
+        var jsonData = '<?php echo json_encode($results_baru); ?>';
         var listData = JSON.parse(jsonData);
 
         var namaObat = [];
@@ -63,46 +94,46 @@
             namaObat.push(element['nama_obat']);
         });
 
-        // var items = [
-        //   "C++",
-        //   "Java",
-        //   "Python",
-        //   "C#",
-        //   "DSA",
-        //   "STL",
-        //   "Self Placed",
-        //   "Android",
-        //   "Kotlin",
-        //   "GeeksforGeeks",
-        //   "GFG",
-        // ];
-
-        console.log(namaObat);
-
         // jQuery inbuilt function
-        $("#autocomplete").autocomplete({
+        $("#autocomplete2").autocomplete({
             source: namaObat,
             select: function(event, ui) {
                 var dataObat;
-
                 listData.forEach(element => {
                     if (element['nama_obat'] == ui.item.value) {
                         dataObat = element;
                     }
                 });
 
-                console.log(dataObat);
-                $("#id_obat").val(dataObat['id_obat']);
                 $("#nama_obat").val(dataObat['nama_obat']);
                 $("#kode_obat").val(dataObat['kode_obat']);
+                $("#jumlah_lama").val(dataObat['stok']);
                 $("#satuan").val(dataObat['satuan']);
-
+                $("#stok").html('Stok: ' + dataObat['stok']);
             }
         });
     });
 </script>
 
+<script>
+    $("#status_pengeluaran").change(function() {
+        var status = $("#status_pengeluaran").val();
 
+        if (status === "permintaan_pustu") {
+            $('#jumlah_keluar').show();
+            $('#keperluan').show();
+
+            $('#input_jumlah_keluar').prop('required', true);
+            $('#input_keperluan').prop('required', true);
+        } else if (status === "obat_expire") {
+            $('#jumlah_keluar').hide();
+            $('#keperluan').hide();
+
+            $('#input_jumlah_keluar').removeAttr('required');
+            $('#input_keperluan').removeAttr('required');
+        }
+    });
+</script>
 
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -11,9 +11,11 @@ class Laporanapotek_model extends CI_Model
     }
     public function get()
     {
-        $this->db->select('id_laporan_apotek, created_at, kode_obat, nama_obat, satuan, stok_awal, masuk, pemakaian, ed, sisa_stok');
+        $this->db->select('obat_apotek.nama_obat, SUM(stok_awal) AS "stok_awal", SUM(masuk) AS "masuk", SUM(pemakaian) AS "pemakaian", SUM(ed) AS "ed", SUM(sisa_stok) AS "sisa_stok"');
         $this->db->from('laporan_apotek, obat_apotek');
         $this->db->where('laporan_apotek.id_obat = obat_apotek.id_obat');
+        $this->db->where('laporan_apotek.id_laporan_apotek IN (SELECT MAX(id_laporan_apotek) FROM laporan_apotek GROUP BY id_obat)');
+        $this->db->group_by('obat_apotek.nama_obat');
         $query = $this->db->get();
         return $query->result_array();
     }

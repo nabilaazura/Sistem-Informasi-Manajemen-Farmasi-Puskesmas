@@ -22,6 +22,21 @@ class Obatapotek_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
+    public function getByName()
+    {
+        $this->db->select('kode_obat, nama_obat, satuan, harga_satuan, SUM(jumlah_masuk) as stok');
+        $this->db->from($this->table);
+        $this->db->group_by('nama_obat');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getByNameExp($namaObat)
+    {
+        $this->db->from($this->table);
+        $this->db->where('nama_obat', $namaObat);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function insert($data)
     {
         $this->db->insert($this->table, $data);
@@ -42,5 +57,15 @@ class Obatapotek_model extends CI_Model
     {
         $this->db->update($this->table, ['jumlah_masuk' => $stok], ['id_obat' => $id_obat]);
         return $this->db->affected_rows();
+    }
+    public function getObatExpired($namaObat)
+    {
+        // $this->db->select('id_obat');
+        $this->db->from($this->table);
+        $this->db->like('nama_obat', $namaObat);
+        $this->db->where('expire <= now()');
+        $this->db->where('jumlah_masuk != 0');
+        $query = $this->db->get();
+        return $query->result_array();
     }
 }

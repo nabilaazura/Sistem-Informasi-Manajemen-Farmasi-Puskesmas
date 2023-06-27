@@ -5,7 +5,7 @@
             ?>
             <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
-                    <h5 class="text-capitalize">Formulir Tambah Data Obat</h5>
+                    <h5 class="text-capitalize">Formulir Pengadaan Obat</h5>
                 </div>
                 <div class="card-body p-3">
                     <form method="POST" action="">
@@ -37,9 +37,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Kategori Pengadaan</label>
                             <select name="pengadaan" class="form-control" id="exampleFormControlSelect1" placeholder="Kategori Pengadaan">
-                                <option>APBD I</option>
-                                <option>APBD II</option>
-                                <option>DAK</option>
+                                <option value="APBD I" selected>APBD I</option>
+                                <option value="APBD II">APBD II</option>
+                                <option value="DAK">DAK</option>
                             </select>
                             <?= form_error('pengadaan', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-sm-7"></div>
                         <div class="col-sm-2 float-end">
-                            <a href="<?= base_url('GudangFarmasi/tambahobat') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
+                            <a href="<?= base_url('GudangFarmasi/getPengadaan') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
                             <button type="submit" class="btn bg-gradient-primary" style="background-color: white;">Simpan</button>
                         </div>
                     </form>

@@ -10,6 +10,9 @@ class Poliklinik extends CI_Controller
         $this->load->model('Pendaftaranpasien_model');
         $this->load->model('Pasien_model');
         $this->load->model('Resep_model');
+        $this->load->model('Pengeluaranapotek_model');
+        $this->load->model('Laporanapotek_model');
+        $this->load->model('Obatapotek_model');
     }
 
     function index()
@@ -50,28 +53,30 @@ class Poliklinik extends CI_Controller
         $data['id_antrian'] = $id_antrian;
         $data['id_pasien'] = $id_pasien;
         $data['rekam_medis'] = $this->Pendaftaranpasien_model->getByIdPendaftaran($id_antrian);
+        $data['results_baru'] = $this->Obatapotek_model->getByName();
 
         $this->form_validation->set_rules('keluhan', 'Keluhan Pasien', 'required', [
-            'required' => 'Keluhan Pasien Wajib di Isi'
+            'required' => 'Keluhan Pasien Wajib diisi'
         ]);
         $this->form_validation->set_rules('diagnosa', 'Hasil Diagnosa', 'required', [
-            'required' => 'Hasil Diagnosa Pasien Wajib Wajib di Isi'
+            'required' => 'Hasil Diagnosa Pasien Wajib Wajib diisi'
         ]);
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required', [
-            'required' => 'Tindakan Wajib di Isi'
+            'required' => 'Tindakan Wajib diisi'
         ]);
         $this->form_validation->set_rules('tensi', 'Tensi', 'required', [
-            'required' => 'Tensi Pasien Wajib di Isi'
+            'required' => 'Tensi Pasien Wajib diisi'
         ]);
-        $this->form_validation->set_rules('resep', 'Resep Obat', 'required', [
-            'required' => 'Resep Obat Wajib di Isi'
-        ]);
+        // $this->form_validation->set_rules('resep', 'Resep', 'required|xss_clean', [
+        //     'required' => 'Resep Obat Wajib diisi'
+        // ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view("layout_poliklinik/headerpoli");
             $this->load->view("poliklinik/vw_rekammedis", $data);
-            $this->load->view("layout_poliklinik/footerpoli");
+            $this->load->view("layout_poliklinik/footerpoli2");
         } else {
+            $now = date('Y-m-d H:i:s');
             $data = [
                 'id_pasien' => $this->input->post('id_pasien'),
                 'id_antrian' => $this->input->post('id_antrian'),
@@ -80,7 +85,7 @@ class Poliklinik extends CI_Controller
                 'diagnosa' => $this->input->post('diagnosa'),
                 'tindakan' => $this->input->post('tindakan'),
                 'tensi' => $this->input->post('tensi'),
-                'resep' => $this->input->post('resep'),
+                'resep' => $this->input->post('resep', false),
                 'dokter' => $this->input->post('dokter'),
             ];
             $dataresep = [
@@ -92,6 +97,88 @@ class Poliklinik extends CI_Controller
             $this->RekamMedis_model->insert($data);
             $this->Resep_model->insert($dataresep);
             $this->Pendaftaranpasien_model->updatestatus('Sudah selesai', $this->input->post('id_antrian'));
+
+            // Split the resep
+            $resep = $this->input->post('resep', false);
+            $items = explode("; ", $resep);
+
+            foreach ($items as $item) {
+                if ($item != "") {
+                    $dt = explode("(", $item);
+                    $namaObat = trim($dt[0]);
+
+                    $dataObatYangDipilih = $this->Obatapotek_model->getByNameExp($namaObat);
+                    $sisa_obat_keluar = 1;
+                    foreach ($dataObatYangDipilih as $data) {
+                        $sisa_stok_obat = $data['jumlah_masuk'];
+                        if ($sisa_obat_keluar != 0) {
+                            if ($sisa_stok_obat < $sisa_obat_keluar) {
+                                $sisa_obat_keluar -= $sisa_stok_obat;
+                                $sisa_stok_obat = 0;
+                            } else if (intval($data['jumlah_masuk']) > $sisa_obat_keluar) {
+                                $sisa_stok_obat -= $sisa_obat_keluar;
+                                $sisa_obat_keluar = 0;
+                            } else {
+                                $sisa_stok_obat = 0;
+                                $sisa_obat_keluar = 0;
+                            }
+
+                            if ($sisa_stok_obat == 0) {
+                                // Update stok obat
+                                $this->Obatapotek_model->updateStok($data['id_obat'], 0);
+
+                                // Simpan riwayat pengeluaran
+                                $riwayat = [
+                                    'id_obat' => $data['id_obat'],
+                                    'keperluan' => 'Obat pasien',
+                                    'jumlah' => $data['jumlah_masuk'],
+                                    'tanggal_pengeluaran' => $now,
+                                ];
+                                $this->Pengeluaranapotek_model->insert($riwayat);
+
+                                // Simpan riwayat ke dalam laporan
+                                $laporan = [
+                                    'id_obat' => $data['id_obat'],
+                                    'stok_awal' => $data['jumlah_masuk'],
+                                    'masuk' => 0,
+                                    'pemakaian' => $data['jumlah_masuk'],
+                                    'ed' => 0,
+                                    'sisa_stok' => 0,
+                                    'created_at' => $now,
+                                ];
+                                $this->Laporanapotek_model->insert($laporan);
+                            } else {
+                                // Update stok obat
+                                $this->Obatapotek_model->updateStok($data['id_obat'], $sisa_stok_obat);
+
+                                // Simpan riwayat pengeluaran
+                                $riwayat = [
+                                    'id_obat' => $data['id_obat'],
+                                    'keperluan' => 'Obat pasien',
+                                    'tanggal_pengeluaran' => $now,
+                                    'jumlah' => $data['jumlah_masuk'] - $sisa_stok_obat,
+                                ];
+                                $this->Pengeluaranapotek_model->insert($riwayat);
+
+                                // Simpan riwayat ke dalam laporan
+                                $laporan = [
+                                    'id_obat' => $data['id_obat'],
+                                    'stok_awal' => $data['jumlah_masuk'],
+                                    'masuk' => 0,
+                                    'pemakaian' => $data['jumlah_masuk'] - $sisa_stok_obat,
+                                    'ed' => 0,
+                                    'sisa_stok' => $sisa_stok_obat,
+                                    'created_at' => $now,
+                                ];
+                                $this->Laporanapotek_model->insert($laporan);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Rekam Medis Pasien Berhasil Ditambah!</div>');
             redirect(base_url('Poliklinik/getDataAntrian'));
         }

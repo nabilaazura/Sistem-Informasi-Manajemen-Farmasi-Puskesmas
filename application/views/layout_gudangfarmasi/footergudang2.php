@@ -141,7 +141,7 @@
     $("#status_pengeluaran").change(function() {
         var status = $("#status_pengeluaran").val();
 
-        if (status === "permintaan_poned") {
+        if (status === "permintaan_gudang") {
             $('#jumlah_keluar').show();
             $('#keperluan').show();
 
@@ -156,6 +156,7 @@
         }
     });
 </script>
+
 
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>

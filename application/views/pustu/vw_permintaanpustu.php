@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Jumlah Permintaan</label>
-                                <input name="jumlah" class="form-control" type="text" placeholder="Jumlah Permintaan" id="example-text-input">
+                                <input name="jumlah" class="form-control" type="number" placeholder="Jumlah Permintaan" id="example-text-input">
                                 <?= form_error('jumlah', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="col-sm-7"></div>

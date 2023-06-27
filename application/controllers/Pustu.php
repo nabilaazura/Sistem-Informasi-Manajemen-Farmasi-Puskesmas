@@ -10,6 +10,7 @@ class Pustu extends CI_Controller
         $this->load->model('Obatpustu_model');
         $this->load->model('Obatgudang_model');
         $this->load->model('Permintaan_model');
+        $this->load->model('Pengeluaran_model');
         $this->load->model('Notifikasi_model');
         $this->load->model('Laporanpustu_model');
         $this->load->model('User_model');
@@ -55,17 +56,8 @@ class Pustu extends CI_Controller
 
             $data['judul'] = "Selamat Datang";
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
-            $data['results'] = $this->Obatgudang_model->get();
+            $data['results_baru'] = $this->Obatgudang_model->getByName();
 
-            // $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
-            //     'required' => 'Kode Obat Wajib di Isi'
-            // ]);
-            // $this->form_validation->set_rules('nama_obat', 'Nama Obat', 'required', [
-            //     'required' => 'Nama Obat Wajib di Isi'
-            // ]);
-            // $this->form_validation->set_rules('satuan', 'Satuan/Kemasan', 'required', [
-            //     'required' => 'Satuan/Kemasan Wajib di Isi'
-            // ]);
             $this->form_validation->set_rules('permintaan', 'Permintaan', 'required', [
                 'required' => 'Permintaan Wajib Wajib di Isi'
             ]);
@@ -143,14 +135,26 @@ class Pustu extends CI_Controller
                 $now = date('Y-m-d H:i:s');
                 $data = [
                     'kode_obat' => $this->input->post('kode_obat'),
-                    'nama_obat' => $this->input->post('nama_obat'),
+                    'nama_obat' => ucwords(strtolower($this->input->post('nama_obat'))),
                     'satuan' => $this->input->post('satuan'),
                     'harga_satuan' => $this->input->post('harga_satuan'),
                     'jumlah_masuk' => $this->input->post('jumlah_masuk'),
                     'tanggal_masuk' => $now,
                     'expire' => $this->input->post('expire'),
                 ];
-                $this->Obatpustu_model->insert($data);
+                $id = $this->Obatpustu_model->insert($data);
+
+                $data2 = [
+                    'id_obat' => $id,
+                    'stok_awal' => 0,
+                    'masuk' => $this->input->post('jumlah_masuk'),
+                    'pemakaian' => 0,
+                    'ed' => 0,
+                    'sisa_stok' => $this->input->post('jumlah_masuk'),
+                    'created_at' => $now,
+                ];
+                $this->Laporanpustu_model->insert($data2);
+
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Ditambah!</div>');
                 redirect(base_url('Pustu/getObatPustu'));
             }
@@ -180,8 +184,8 @@ class Pustu extends CI_Controller
                     'kode_obat' => $this->input->post('kode_obat'),
                     'nama_obat' => $this->input->post('nama_obat'),
                     'satuan' => $this->input->post('satuan'),
-                    'harga' => $this->input->post('harga'),
-                    'stok' => $this->input->post('stok'),
+                    'harga_satuan' => $this->input->post('harga_satuan'),
+                    'jumlah_masuk' => $this->input->post('jumlah_masuk'),
                     'tanggal_masuk' => $now,
                     'expire' => $this->input->post('expire'),
                 ];
@@ -244,6 +248,215 @@ class Pustu extends CI_Controller
             $this->load->view("layout_pustu/headerpustu", $data);
             $this->load->view("pustu/vw_laporanpustu", $data);
             $this->load->view("layout_pustu/footerpustu");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    function tambahStok($id)
+    {
+        if ($this->session->userdata('role') == 'pustu') {
+            $now = date('Y-m-d H:i:s');
+            $idUser = $this->session->userdata('id');
+
+            $data['judul'] = "Halaman Perubahan Obat";
+            $data['obat_pustu'] = $this->Obatpustu_model->getById($id);
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
+                'required' => 'Jumlah Masuk Wajib di Isi'
+            ]);
+
+            if ($this->form_validation->run() == false) {
+                $this->load->view("layout_pustu/headerpustu", $data);
+                $this->load->view("pustu/vw_tambahstokpustu", $data);
+                $this->load->view("layout_pustu/footerpustu");
+            } else {
+                // $id = $this->input->post('id_obat');
+                $stok_baru = $this->input->post('jumlah_masuk');
+                $stok_akhir = intval($data['obat_pustu']['jumlah_masuk']) + intval($stok_baru);
+
+                $this->Obatpustu_model->updateStok($id, $stok_akhir);
+
+                $data2 = [
+                    'id_obat' => $id,
+                    'stok_awal' => $data['obat_pustu']['jumlah_masuk'],
+                    'masuk' => $stok_baru,
+                    'pemakaian' => 0,
+                    'ed' => 0,
+                    'sisa_stok' => $stok_akhir,
+                    'created_at' => $now,
+                ];
+
+                $this->Laporanpustu_model->insert($data2);
+
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Diubah!</div>');
+                redirect(base_url('Pustu/getObatPustu'));
+            }
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+
+    public function updateStok()
+    {
+        $id_obat = $this->input->post('id_obat');
+        $jumlah_lama = $this->input->post('jumlah_lama');
+        $jumlah_baru = $this->input->post('jumlah_baru');
+
+        $total = $jumlah_lama + $jumlah_baru;
+        $this->Obatpustu_model->updateStok($id_obat, $total);
+
+        $now = date('Y-m-d H:i:s');
+        $data2 = [
+            'id_obat' => $id_obat,
+            'stok_awal' => $jumlah_lama,
+            'masuk' => $jumlah_baru,
+            'pemakaian' => 0,
+            'ed' => 0,
+            'sisa_stok' => $total,
+            'created_at' => $now,
+        ];
+        $this->Laporanpustu_model->insert($data2);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Stok obat berhasil ditambah!</div>');
+        redirect(base_url('Pustu/getObatPustu'));
+    }
+
+    function getPengeluaranPustu()
+    {
+        if ($this->session->userdata('role') == 'pustu') {
+            $idUser = $this->session->userdata('id');
+
+            $data['judul'] = "Selamat Datang";
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            // $data['results'] = $this->Obatpustu_model->get();
+            $data['results_baru'] = $this->Obatpustu_model->getByName();
+
+            $this->form_validation->set_rules('status_pengeluaran', 'Status Pengeluaran', 'required', [
+                'required' => 'Status Pengeluaran Wajib di Isi'
+            ]);
+
+            if ($this->form_validation->run() == false) {
+                // var_dump($data['results_baru']);
+                $this->load->view("layout_pustu/headerpustu", $data);
+                $this->load->view("pustu/vw_pengeluaranpustu", $data);
+                $this->load->view("layout_pustu/footerpustu2");
+            } else {
+                $now = date('Y-m-d H:i:s');
+                $status_pengeluaran = $this->input->post('status_pengeluaran');
+
+                if ($status_pengeluaran == 'permintaan_pustu') {
+                    $jumlah_lama = intval($this->input->post('jumlah_lama'));
+                    $jumlah_keluar = intval($this->input->post('jumlah'));
+
+                    // Cek stok
+                    if ($jumlah_keluar > $jumlah_lama) {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Stok Obat Tidak Cukup!</div>');
+                        redirect(base_url('Pustu/getPengeluaranPustu'));
+                    }
+
+                    $dataObatYangDipilih = $this->Obatpustu_model->getByNameExp($this->input->post('nama_obat'));
+                    $sisa_obat_keluar = $jumlah_keluar;
+                    foreach ($dataObatYangDipilih as $data) {
+                        $sisa_stok_obat = $data['jumlah_masuk'];
+                        if ($sisa_obat_keluar != 0) {
+                            if ($sisa_stok_obat < $sisa_obat_keluar) {
+                                $sisa_obat_keluar -= $sisa_stok_obat;
+                                $sisa_stok_obat = 0;
+                            } else if (intval($data['jumlah_masuk']) > $sisa_obat_keluar) {
+                                $sisa_stok_obat -= $sisa_obat_keluar;
+                                $sisa_obat_keluar = 0;
+                            } else {
+                                $sisa_stok_obat = 0;
+                                $sisa_obat_keluar = 0;
+                            }
+
+                            if ($sisa_stok_obat == 0) {
+                                // Update stok obat
+                                $this->Obatpustu_model->updateStok($data['id_obat'], 0);
+
+                                // Simpan riwayat pengeluaran
+                                $riwayat = [
+                                    'id_obat' => $data['id_obat'],
+                                    'keperluan' => $this->input->post('keperluan'),
+                                    'tanggal_pengeluaran' => $now,
+                                    'jumlah' => $data['jumlah_masuk'],
+                                ];
+                                $this->Pengeluaran_model->insert($riwayat);
+
+                                // Simpan riwayat ke dalam laporan
+                                $laporan = [
+                                    'id_obat' => $data['id_obat'],
+                                    'stok_awal' => $data['jumlah_masuk'],
+                                    'masuk' => 0,
+                                    'pemakaian' => $data['jumlah_masuk'],
+                                    'ed' => 0,
+                                    'sisa_stok' => 0,
+                                    'created_at' => $now,
+                                ];
+                                $this->Laporanpustu_model->insert($laporan);
+                            } else {
+                                // Update stok obat
+                                $this->Obatpustu_model->updateStok($data['id_obat'], $sisa_stok_obat);
+
+                                // Simpan riwayat pengeluaran
+                                $riwayat = [
+                                    'id_obat' => $data['id_obat'],
+                                    'keperluan' => $this->input->post('keperluan'),
+                                    'tanggal_pengeluaran' => $now,
+                                    'jumlah' => $data['jumlah_masuk'] - $sisa_stok_obat,
+                                ];
+                                $this->Pengeluaran_model->insert($riwayat);
+
+                                // Simpan riwayat ke dalam laporan
+                                $laporan = [
+                                    'id_obat' => $data['id_obat'],
+                                    'stok_awal' => $data['jumlah_masuk'],
+                                    'masuk' => 0,
+                                    'pemakaian' => $data['jumlah_masuk'] - $sisa_stok_obat,
+                                    'ed' => 0,
+                                    'sisa_stok' => $sisa_stok_obat,
+                                    'created_at' => $now,
+                                ];
+                                $this->Laporanpustu_model->insert($laporan);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pengeluaran Obat Berhasil Disimpan!</div>');
+                    redirect(base_url('Pustu/getPengeluaranPustu'));
+                } else if ($status_pengeluaran == 'obat_expire') {
+                    $dataObatExpired = $this->Obatpustu_model->getObatExpired($this->input->post('nama_obat'));
+
+                    if (!empty($dataObatExpired)) {
+                        // Hapus data obat yang expired
+                        foreach ($dataObatExpired as $dt) {
+                            var_dump($dt);
+                            $this->Obatpustu_model->updateStok($dt['id_obat'], 0);
+
+                            // Simpan riwayat ke dalam laporan
+                            $laporan = [
+                                'id_obat' => $dt['id_obat'],
+                                'stok_awal' => $dt['jumlah_masuk'],
+                                'masuk' => 0,
+                                'pemakaian' => 0,
+                                'ed' => $dt['jumlah_masuk'],
+                                'sisa_stok' => 0,
+                                'created_at' => $now,
+                            ];
+                            $this->Laporanpustu_model->insert($laporan);
+                        }
+
+                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><strong>Berhasil!</strong> Data Obat Expired Berhasil Dihapus!</div>');
+                        redirect(base_url('Pustu/getPengeluaranPustu'));
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong>Gagal!</strong> Tidak Ada Obat Yang Expired!</div>');
+                        redirect(base_url('Pustu/getPengeluaranPustu'));
+                    }
+                }
+            }
         } else {
             redirect(base_url('auth'));
         }

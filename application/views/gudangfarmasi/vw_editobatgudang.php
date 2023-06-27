@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
-                            <input name="jumlah_masuk" value="<?= $obat['jumlah_masuk']; ?>" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
+                            <input name="jumlah_masuk" value="<?= $obat['jumlah_masuk']; ?>" class="form-control" type="number" placeholder="Jumlah Masuk" id="example-text-input" readonly>
                         </div>
                         <!-- <div class="form-group">
                             <label for="tanggal_masuk" class="form-control-label">Tanggal Masuk</label>

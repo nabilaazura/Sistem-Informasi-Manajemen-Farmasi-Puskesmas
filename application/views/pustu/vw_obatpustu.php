@@ -4,8 +4,8 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <a href="<?= base_url(); ?>Pustu/getPemasukanPustu" type="button" class="btn btn-primary float-end" ps-3>Tambah Pemasukan Obat</a>
-            <h6>List Pemasukan Obat</h6>
+            <a href="<?= base_url(); ?>Pustu/getPemasukanPustu" type="button" class="btn btn-outline-primary float-end" ps-3>Tambah Obat Baru</a>
+            <h6>Daftar Obat Pustu</h6>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-3">
@@ -56,21 +56,50 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $obat_pustu['expire']; ?></p>
                       </td>
                       <td class="align-middle text-sm">
-                        <a href="<?= base_url('Pustu/EditObat/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-success">Edit</a> &nbsp;
-                        <a href="<?= base_url('Pustu/hapus/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-danger">Hapus</a>
+                        <a class="badge badge-sm bg-primary" data-bs-toggle="modal" data-bs-target="#exampleModalMessage<?= $obat_pustu['id_obat']; ?>">Tambah Stok</a> &nbsp;
+                        <a href=" <?= base_url('Pustu/EditObat/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-success">Edit</a>
                       </td>
                       <!-- <td class="align-middle text-sm">
                         <a href="<?= base_url('Pustu/hapus/') . $obat_pustu['id_obat']; ?>" class="badge badge-sm bg-danger">Hapus</a>
                       </td> -->
                     </tr>
-                    <?php $i += 1; ?>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalMessage<?= $obat_pustu['id_obat']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Stok Obat</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="<?= base_url('Pustu/updateStok'); ?>" method="post">
+                              <input type="hidden" name="id_obat" value="<?= $obat_pustu['id_obat']; ?>" />
+                              <input type="hidden" name="jumlah_lama" value="<?= $obat_pustu['jumlah_masuk']; ?>" />
+                              <div class="form-group">
+                                <label for="jumlah_masuk" class="col-form-label">Jumlah Masuk</label>
+                                <input type="text" name="jumlah_baru" class="form-control" placeholder="Jumlah Masuk" id="jumlah_baru" />
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
             </div>
+            <?php $i += 1; ?>
+          <?php endforeach; ?>
+          </tbody>
+          </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>

@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Obatgudang_model extends CI_Model
+class LPLPO_model extends CI_Model
 {
-    public $table = 'obat';
-    public $id = 'obat.id_obat';
+    public $table = 'lplpo';
+    public $id = 'lplpo.id_lplpo';
     public function __construct()
     {
         parent::__construct();
@@ -15,20 +15,12 @@ class Obatgudang_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getById($id_obat)
+    public function getById($id_lplpo)
     {
         $this->db->from($this->table);
-        $this->db->where('id_obat', $id_obat);
+        $this->db->where('id_lplpo', $id_lplpo);
         $query = $this->db->get();
         return $query->row_array();
-    }
-    public function getByName()
-    {
-        $this->db->select('kode_obat, nama_obat, satuan, harga_satuan, SUM(jumlah_masuk) as stok');
-        $this->db->from($this->table);
-        $this->db->group_by('nama_obat');
-        $query = $this->db->get();
-        return $query->result_array();
     }
     public function insert($data)
     {
@@ -40,15 +32,10 @@ class Obatgudang_model extends CI_Model
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }
-    public function delete($id_obat)
+    public function delete($id_lplpo)
     {
-        $this->db->where($this->id, $id_obat);
+        $this->db->where($this->id, $id_lplpo);
         $this->db->delete($this->table);
-        return $this->db->affected_rows();
-    }
-    public function updateStok($id_obat, $stok)
-    {
-        $this->db->update($this->table, ['jumlah_masuk' => $stok], ['id_obat' => $id_obat]);
         return $this->db->affected_rows();
     }
 }

@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="stok" class="form-control-label">Jumlah Masuk</label>
-                            <input name="jumlah_masuk" value="<?= $obat_apotek['jumlah_masuk']; ?>" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
+                            <input name="jumlah_masuk" value="<?= $obat_apotek['jumlah_masuk']; ?>" class="form-control" type="number" placeholder="Jumlah Masuk" id="example-text-input">
                         </div>
                         <!-- <div class="form-group">
                             <label for="tanggal_masuk" class="form-control-label">Tanggal Masuk</label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-sm-7"></div>
                         <div class="col-sm-2 float-end">
-                            <a href="<?= base_url('Apotek/EditObat') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
+                            <a onclick="history.back()" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
                             <button type="submit" class="btn bg-gradient-primary" style="background-color: white;">Simpan</button>
                         </div>
                     </form>

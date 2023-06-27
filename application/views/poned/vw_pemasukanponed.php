@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
-                                <input name="jumlah_masuk" class="form-control" type="text" placeholder="Jumlah Masuk" id="example-text-input">
+                                <input name="jumlah_masuk" class="form-control" type="number" placeholder="Jumlah Masuk" id="example-text-input">
                                 <?= form_error('jumlah_masuk', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <!-- <div class="form-group">

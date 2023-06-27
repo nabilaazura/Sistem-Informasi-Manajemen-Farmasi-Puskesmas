@@ -57,7 +57,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="<?= base_url('Pustu'); ?>">
-            <i class="fa-solid fa-square-plus d-flex align-items-center justify-content-center"></i>
+            <i class="fa-solid fa-house-chimney-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Dashboard</span>
           </a>
         </li>
@@ -68,6 +68,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link " href="<?= base_url('Pustu/getPengeluaranPustu/'); ?>">
+            <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Pengeluaran Obat</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link " href="<?= base_url('Pustu/getPermintaanPustu/'); ?>">
             <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Permintaan Obat</span>
@@ -75,8 +81,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link " href="<?= base_url('Pustu/laporanPustu/'); ?>">
-            <i class="fa-solid fa-kit-medical d-flex align-items-center justify-content-center"></i>
-            <span class="nav-link-text ms-3">Laporan Pustu</span>
+            <i class="fa-solid fa-notes-medical d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Laporan Obat</span>
           </a>
         </li>
     </div>

@@ -91,8 +91,8 @@ class Loket extends CI_Controller
                 'tanggal_registrasi' => $now,
             ];
             $this->Pasien_model->insert($data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Berhasil Ditambah!</div>');
-            redirect(base_url('loket/getdatapasien'));
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Baru Berhasil Ditambah!</div>');
+            redirect(base_url('loket/pendaftaranPasien'));
         }
     }
     function cariPasien()
