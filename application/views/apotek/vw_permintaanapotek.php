@@ -12,25 +12,26 @@
                             <input type="hidden" name="id_obat" />
                             <div class="form-group">
                                 <label for="example-date-input" class="form-control-label">Nama Obat</label>
-                                <div class="input-group mb-4">
+                                <div class="input-group">
                                     <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
-                                    <input name="nama_obat" id="autocomplete" class="form-control" placeholder="Cari Obat" type="text">
+                                    <input name="nama_obat" id="autocomplete" class="form-control" placeholder="Cari Obat" type="text" aria-describedby="stok">
                                 </div>
+                                <small id="stok_permintaan" class="form-text text-muted">Stok: -</small>
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kode</label>
-                                <input name="kode_obat" class="form-control" type="text" placeholder="Kode Obat" id="kode_obat">
+                                <input name="kode_obat" class="form-control" type="text" placeholder="Kode Obat" id="kode_obat" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Satuan/Kemasan</label>
-                                <input name="satuan" class="form-control" type="text" placeholder="Satuan/Kemasan" id="satuan">
+                                <input name="satuan" class="form-control" type="text" placeholder="Satuan/Kemasan" id="satuan" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Permintaan</label>
                                 <select name="permintaan" class="form-control" id="exampleFormControlSelect1">
-                                    <option>Apotek</option>
-                                    <option>Puskesmas Pembantu</option>
-                                    <option>PONED</option>
+                                    <option value="apotek" selected>Apotek</option>
+                                    <option value="puskesmas_pembantu">Puskesmas Pembantu</option>
+                                    <option value="poned">PONED</option>
                                 </select>
                                 <?= form_error('permintaan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>

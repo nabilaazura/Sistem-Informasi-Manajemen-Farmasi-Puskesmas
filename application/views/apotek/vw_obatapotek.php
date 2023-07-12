@@ -15,7 +15,8 @@
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Obat</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Masuk</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Masuk
+                  </th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Obat</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Satuan</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Satuan</th>
@@ -31,30 +32,46 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <p class="text-xs font-weight-bold mb-0"><?= $i; ?></p>
+                          <p class="text-xs font-weight-bold mb-0">
+                            <?= $i; ?>
+                          </p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['kode_obat']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['kode_obat']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['tanggal_masuk']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['tanggal_masuk']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['nama_obat']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['nama_obat']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['satuan']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['satuan']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['harga_satuan']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['harga_satuan']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['jumlah_masuk']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['jumlah_masuk']; ?>
+                      </p>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= $obat_apotek['expire']; ?></p>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <?= $obat_apotek['expire']; ?>
+                      </p>
                     </td>
                     <td class="align-middle text-sm">
                       <a class="badge badge-sm bg-primary" data-bs-toggle="modal" data-bs-target="#exampleModalMessage<?= $obat_apotek['id_obat']; ?>">Tambah Stok</a> &nbsp;

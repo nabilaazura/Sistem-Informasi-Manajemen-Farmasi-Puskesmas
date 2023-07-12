@@ -1,4 +1,3 @@
-<!-- End Navbar -->
 <main class="main-content  mt-0">
   <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url(<?= base_url('assets/assets/img/kesehatan.jpg'); ?>); background-position: top;">
     <span class="mask bg-gradient-dark opacity-6"></span>
@@ -16,7 +15,7 @@
       <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
         <div class="card z-index-0">
           <div class="card-header text-center pt-4">
-            <h5>Register with</h5>
+            <h5>Daftarkan Akun</h5>
           </div>
           <div class="card-body">
             <form role="form" method="POST" action="">

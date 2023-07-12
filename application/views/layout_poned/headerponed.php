@@ -56,31 +56,31 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active">
+          <a class="nav-link <?php if ($menu == "dashboard") echo 'active'; ?>" href="<?= base_url('Poned'); ?>">
             <i class="fa-solid fa-house-chimney-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/getObatPoned'); ?>">
+          <a class="nav-link <?php if ($menu == "obat") echo 'active'; ?>" href="<?= base_url('Poned/getObatPoned'); ?>">
             <i class="fa-solid fa-capsules d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/getPengeluaranPoned'); ?>">
+          <a class="nav-link <?php if ($menu == "pengeluaran obat") echo 'active'; ?>" href="<?= base_url('Poned/getPengeluaranPoned'); ?>">
             <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Pengeluaran Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/getPermintaanPoned'); ?>">
+          <a class="nav-link <?php if ($menu == "permintaan obat") echo 'active'; ?>" href="<?= base_url('Poned/getPermintaanPoned'); ?>">
             <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Permintaan Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Poned/laporanPoned'); ?>">
+          <a class="nav-link <?php if ($menu == "laporan obat") echo 'active'; ?>" href="<?= base_url('Poned/laporanPoned'); ?>">
             <i class="fa-solid fa-notes-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Laporan Obat</span>
           </a>
@@ -123,7 +123,7 @@
               <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-bell cursor-pointer"></i>
               </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+              <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" style="max-height: 250px; overflow-y: scroll; -webkit-overflow-scrolling: touch;" aria-labelledby="dropdownMenuButton">
                 <?php foreach ($notifikasi as $data) : ?>
                   <li>
                     <a class="dropdown-item border-radius-md" href="javascript:;">

@@ -58,33 +58,18 @@
         var jsonData = '<?php echo json_encode($results); ?>';
         var listData = JSON.parse(jsonData);
 
+        console.log(listData);
+
         var namaObat = [];
         listData.forEach(element => {
             namaObat.push(element['nama_obat']);
         });
-
-        // var items = [
-        //   "C++",
-        //   "Java",
-        //   "Python",
-        //   "C#",
-        //   "DSA",
-        //   "STL",
-        //   "Self Placed",
-        //   "Android",
-        //   "Kotlin",
-        //   "GeeksforGeeks",
-        //   "GFG",
-        // ];
-
-        console.log(namaObat);
 
         // jQuery inbuilt function
         $("#autocomplete").autocomplete({
             source: namaObat,
             select: function(event, ui) {
                 var dataObat;
-
                 listData.forEach(element => {
                     if (element['nama_obat'] == ui.item.value) {
                         dataObat = element;
@@ -96,7 +81,7 @@
                 $("#nama_obat").val(dataObat['nama_obat']);
                 $("#kode_obat").val(dataObat['kode_obat']);
                 $("#satuan").val(dataObat['satuan']);
-
+                $("#stok_permintaan").html('Stok: ' + dataObat['stok']);
             }
         });
     });
@@ -141,7 +126,7 @@
     $("#status_pengeluaran").change(function() {
         var status = $("#status_pengeluaran").val();
 
-        if (status === "permintaan_poned") {
+        if (status === "permintaan_apotek") {
             $('#jumlah_keluar').show();
             $('#keperluan').show();
 

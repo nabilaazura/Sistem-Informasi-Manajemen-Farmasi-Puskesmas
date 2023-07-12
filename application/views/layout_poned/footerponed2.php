@@ -55,27 +55,13 @@
 <script>
     $(document).ready(function() {
         // Array of items.
-        var jsonData = '<?php echo json_encode($results); ?>';
+        var jsonData = '<?php echo json_encode($results_baru); ?>';
         var listData = JSON.parse(jsonData);
 
         var namaObat = [];
         listData.forEach(element => {
             namaObat.push(element['nama_obat']);
         });
-
-        // var items = [
-        //   "C++",
-        //   "Java",
-        //   "Python",
-        //   "C#",
-        //   "DSA",
-        //   "STL",
-        //   "Self Placed",
-        //   "Android",
-        //   "Kotlin",
-        //   "GeeksforGeeks",
-        //   "GFG",
-        // ];
 
         console.log(namaObat);
 
@@ -96,7 +82,7 @@
                 $("#nama_obat").val(dataObat['nama_obat']);
                 $("#kode_obat").val(dataObat['kode_obat']);
                 $("#satuan").val(dataObat['satuan']);
-
+                $("#stok_permintaan").html('Stok: ' + dataObat['stok']);
             }
         });
     });

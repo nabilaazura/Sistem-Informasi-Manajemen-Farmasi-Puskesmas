@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-sm-7"></div>
                             <div class="col-sm-2 float-end">
-                                <a href="<?= base_url('Poned/getPemasukanPoned') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
+                                <a href="<?= base_url('Poned/getObatPoned') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
                                 <button type="submit" href="<?= base_url('Poned/getObatPoned') ?>" class=" btn bg-gradient-primary" style="background-color: white;">Simpan</button>
                             </div>
                         </form>

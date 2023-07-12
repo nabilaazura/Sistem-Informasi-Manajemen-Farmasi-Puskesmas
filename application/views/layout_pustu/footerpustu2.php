@@ -74,10 +74,13 @@
                     }
                 });
 
+                console.log(dataObat);
+
                 $("#id_obat").val(dataObat['id_obat']);
                 $("#nama_obat").val(dataObat['nama_obat']);
                 $("#kode_obat").val(dataObat['kode_obat']);
                 $("#satuan").val(dataObat['satuan']);
+                $("#stok_permintaan").html('Stok: ' + dataObat['stok']);
             }
         });
     });

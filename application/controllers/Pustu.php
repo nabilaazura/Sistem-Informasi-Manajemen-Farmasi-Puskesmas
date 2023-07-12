@@ -14,19 +14,23 @@ class Pustu extends CI_Controller
         $this->load->model('Notifikasi_model');
         $this->load->model('Laporanpustu_model');
         $this->load->model('User_model');
+        $this->load->model('Pasien_model');
     }
-
     function index()
     {
         if ($this->session->userdata('role') == 'pustu') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'dashboard';
+            $data['total_pasien'] = $this->Pasien_model->total_pasien();
+            $data['total_pasien_bulan_ini'] = $this->Pasien_model->total_pasien_per_bulan();
+            $data['total_pasien_hari_ini'] = $this->Pasien_model->total_pasien_per_hari();
+            $data['data_pasien'] = $this->Pasien_model->get_pasien_by_month();
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
             $this->load->view("layout_pustu/headerpustu", $data);
             $this->load->view("pustu/vw_dashboardpustu", $data);
-            $this->load->view("layout_pustu/footerpustu");
+            $this->load->view("layout_pustu/footerpustu", $data);
         } else {
             redirect(base_url('auth'));
         }
@@ -34,12 +38,12 @@ class Pustu extends CI_Controller
     function getObatPustu()
     {
         if ($this->session->userdata('role') == 'pustu') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['data_obat'] = $this->Obatpustu_model->get();
+
             $this->load->view("layout_pustu/headerpustu", $data);
             $this->load->view("pustu/vw_obatpustu", $data);
             $this->load->view("layout_pustu/footerpustu");
@@ -47,14 +51,13 @@ class Pustu extends CI_Controller
             redirect(base_url('auth'));
         }
     }
-
     function getPermintaanPustu()
     {
         if ($this->session->userdata('role') == 'pustu') {
             $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'permintaan obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['results_baru'] = $this->Obatgudang_model->getByName();
 
@@ -102,10 +105,9 @@ class Pustu extends CI_Controller
     function getPemasukanPustu()
     {
         if ($this->session->userdata('role') == 'pustu') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
@@ -165,38 +167,34 @@ class Pustu extends CI_Controller
     function EditObat($id)
     {
         if ($this->session->userdata('role') == 'pustu') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['obat_pustu'] = $this->Obatpustu_model->getById($id);
 
-            $now = date('Y-m-d H:i:s');
-            if ($this->form_validation->run() == false) {
-                $data['judul'] = "Halaman Perubahan Obat";
-                $data['obat_pustu'] = $this->Obatpustu_model->getById($id);
-                $this->load->view("layout_pustu/headerpustu", $data);
-                $this->load->view("pustu/vw_editobatpustu", $data);
-                $this->load->view("layout_pustu/footerpustu");
-            } else {
-
-                $data = [
-                    'kode_obat' => $this->input->post('kode_obat'),
-                    'nama_obat' => $this->input->post('nama_obat'),
-                    'satuan' => $this->input->post('satuan'),
-                    'harga_satuan' => $this->input->post('harga_satuan'),
-                    'jumlah_masuk' => $this->input->post('jumlah_masuk'),
-                    'tanggal_masuk' => $now,
-                    'expire' => $this->input->post('expire'),
-                ];
-                $id = $this->input->post('id_obat');
-                $this->Obatpustu_model->update(['id_obat' => $id], $data);
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Dosen Berhasil Diubah!</div>');
-                redirect(base_url('Pustu/getObatPustu'));
-            }
+            $this->load->view("layout_pustu/headerpustu", $data);
+            $this->load->view("pustu/vw_editobatpustu", $data);
+            $this->load->view("layout_pustu/footerpustu");
         } else {
             redirect(base_url('auth'));
         }
+    }
+    function update()
+    {
+        $now = date('Y-m-d H:i:s');
+        $data = [
+            'kode_obat' => $this->input->post('kode_obat'),
+            'nama_obat' => $this->input->post('nama_obat'),
+            'satuan' => $this->input->post('satuan'),
+            'harga_satuan' => $this->input->post('harga_satuan'),
+            'jumlah_masuk' => $this->input->post('jumlah_masuk'),
+            'tanggal_masuk' => $now,
+            'expire' => $this->input->post('expire'),
+        ];
+        $id_obat = $this->input->post('id_obat');
+        $this->Obatpustu_model->update(['id_obat' => $id_obat], $data);
+        redirect(base_url('Pustu/getObatPustu'));
     }
     function hapus($id_obat)
     {
@@ -219,29 +217,13 @@ class Pustu extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Ditambah!</div>');
         redirect(base_url('Pustu/getObatPustu'));
     }
-    function update()
-    {
-        $now = date('Y-m-d H:i:s');
-        $data = [
-            'kode_obat' => $this->input->post('kode_obat'),
-            'nama_obat' => $this->input->post('nama_obat'),
-            'satuan' => $this->input->post('satuan'),
-            'harga_satuan' => $this->input->post('harga_satuan'),
-            'jumlah_masuk' => $this->input->post('jumlah_masuk'),
-            'tanggal_masuk' => $now,
-            'expire' => $this->input->post('expire'),
-        ];
-        $id_obat = $this->input->post('id_obat');
-        $this->Obatpustu_model->update(['id_obat' => $id_obat], $data);
-        redirect(base_url('Pustu/getObatPustu'));
-    }
     function laporanPustu()
     {
         if ($this->session->userdata('role') == 'pustu') {
             $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'laporan obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['data_laporan'] = $this->Laporanpustu_model->get();
 
@@ -252,51 +234,50 @@ class Pustu extends CI_Controller
             redirect(base_url('auth'));
         }
     }
-    function tambahStok($id)
-    {
-        if ($this->session->userdata('role') == 'pustu') {
-            $now = date('Y-m-d H:i:s');
-            $idUser = $this->session->userdata('id');
+    // function tambahStok($id)
+    // {
+    //     if ($this->session->userdata('role') == 'pustu') {
+    //         $now = date('Y-m-d H:i:s');
+    //         $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Halaman Perubahan Obat";
-            $data['obat_pustu'] = $this->Obatpustu_model->getById($id);
-            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+    //         $data['judul'] = "Halaman Perubahan Obat";
+    //         $data['obat_pustu'] = $this->Obatpustu_model->getById($id);
+    //         $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
-            $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
-                'required' => 'Jumlah Masuk Wajib di Isi'
-            ]);
+    //         $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
+    //             'required' => 'Jumlah Masuk Wajib di Isi'
+    //         ]);
 
-            if ($this->form_validation->run() == false) {
-                $this->load->view("layout_pustu/headerpustu", $data);
-                $this->load->view("pustu/vw_tambahstokpustu", $data);
-                $this->load->view("layout_pustu/footerpustu");
-            } else {
-                // $id = $this->input->post('id_obat');
-                $stok_baru = $this->input->post('jumlah_masuk');
-                $stok_akhir = intval($data['obat_pustu']['jumlah_masuk']) + intval($stok_baru);
+    //         if ($this->form_validation->run() == false) {
+    //             $this->load->view("layout_pustu/headerpustu", $data);
+    //             $this->load->view("pustu/vw_tambahstokpustu", $data);
+    //             $this->load->view("layout_pustu/footerpustu");
+    //         } else {
+    //             // $id = $this->input->post('id_obat');
+    //             $stok_baru = $this->input->post('jumlah_masuk');
+    //             $stok_akhir = intval($data['obat_pustu']['jumlah_masuk']) + intval($stok_baru);
 
-                $this->Obatpustu_model->updateStok($id, $stok_akhir);
+    //             $this->Obatpustu_model->updateStok($id, $stok_akhir);
 
-                $data2 = [
-                    'id_obat' => $id,
-                    'stok_awal' => $data['obat_pustu']['jumlah_masuk'],
-                    'masuk' => $stok_baru,
-                    'pemakaian' => 0,
-                    'ed' => 0,
-                    'sisa_stok' => $stok_akhir,
-                    'created_at' => $now,
-                ];
+    //             $data2 = [
+    //                 'id_obat' => $id,
+    //                 'stok_awal' => $data['obat_pustu']['jumlah_masuk'],
+    //                 'masuk' => $stok_baru,
+    //                 'pemakaian' => 0,
+    //                 'ed' => 0,
+    //                 'sisa_stok' => $stok_akhir,
+    //                 'created_at' => $now,
+    //             ];
 
-                $this->Laporanpustu_model->insert($data2);
+    //             $this->Laporanpustu_model->insert($data2);
 
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Diubah!</div>');
-                redirect(base_url('Pustu/getObatPustu'));
-            }
-        } else {
-            redirect(base_url('auth'));
-        }
-    }
-
+    //             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Diubah!</div>');
+    //             redirect(base_url('Pustu/getObatPustu'));
+    //         }
+    //     } else {
+    //         redirect(base_url('auth'));
+    //     }
+    // }
     public function updateStok()
     {
         $id_obat = $this->input->post('id_obat');
@@ -321,15 +302,13 @@ class Pustu extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Stok obat berhasil ditambah!</div>');
         redirect(base_url('Pustu/getObatPustu'));
     }
-
     function getPengeluaranPustu()
     {
         if ($this->session->userdata('role') == 'pustu') {
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'pengeluaran obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
-            // $data['results'] = $this->Obatpustu_model->get();
             $data['results_baru'] = $this->Obatpustu_model->getByName();
 
             $this->form_validation->set_rules('status_pengeluaran', 'Status Pengeluaran', 'required', [
@@ -337,7 +316,6 @@ class Pustu extends CI_Controller
             ]);
 
             if ($this->form_validation->run() == false) {
-                // var_dump($data['results_baru']);
                 $this->load->view("layout_pustu/headerpustu", $data);
                 $this->load->view("pustu/vw_pengeluaranpustu", $data);
                 $this->load->view("layout_pustu/footerpustu2");
@@ -459,6 +437,15 @@ class Pustu extends CI_Controller
             }
         } else {
             redirect(base_url('auth'));
+        }
+    }
+    public function filterDataByMonth($selectedMonth)
+    {
+        try {
+            $data = $this->Laporanpustu_model->filterDataBySelectedMonth($selectedMonth);
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo "Terjadi kesalahan: " . $e->getMessage();
         }
     }
 }

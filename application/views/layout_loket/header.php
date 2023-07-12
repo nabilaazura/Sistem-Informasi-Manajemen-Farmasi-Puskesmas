@@ -57,19 +57,19 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="<?= base_url('Loket'); ?>">
+          <a class="nav-link <?php if ($menu == "dashboard") echo 'active'; ?>" href="<?= base_url('Loket'); ?>">
             <i class="fa-solid fa-house-chimney-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Loket/getDataPendaftaran/'); ?>">
+          <a class="nav-link <?php if ($menu == "data pendaftaran") echo 'active'; ?>" href="<?= base_url('Loket/getDataPendaftaran/'); ?>">
             <i class="fa-solid fa-hospital-user d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Data Pendaftaran</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="<?= base_url('Loket/getDataPasien/'); ?>">
+          <a class="nav-link <?php if ($menu == "data pasien") echo 'active'; ?>" href="<?= base_url('Loket/getDataPasien/'); ?>">
             <i class="fa-solid fa-book-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Data Pasien</span>
           </a>

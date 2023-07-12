@@ -53,6 +53,41 @@
   }
 </script>
 
+<script>
+  var dataPasien = <?= json_encode($data_pasien) ?>;
+  console.log(dataPasien);
+
+  const xValues = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const yValues = [];
+
+  for (let i = 0; i < dataPasien.length; i++) {
+    yValues.push(dataPasien[i]['total']);
+  }
+
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{
+        label: 'Bulan',
+        data: yValues,
+        borderColor: "rgba(0,0,255,0.1)",
+        backgroundColor: ['aqua'],
+        fill: false,
+        pointRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+      }
+    }
+  });
+</script>
+
 <!-- bootstrap5 dataTables js cdn -->
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

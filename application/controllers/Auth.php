@@ -12,22 +12,27 @@ class Auth extends CI_Controller
     {
         $data['judul'] = "Selamat Datang";
 
-        $this->form_validation->set_rules('username', 'Username', 'trim|required', [
-            'required' => 'Username wajib diisi'
-        ]);
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]', [
-            'required' => 'Password wajib diisi',
-            'min_length' => 'Password terlalu pendek',
-        ]);
-        if ($this->form_validation->run() == false) {
-            $this->load->view("layout_auth/header_auth");
-            $this->load->view("auth/login", $data);
-            $this->load->view("layout_auth/footer_auth");
-        } else {
-            $this->cek_login();
-        }
+        $this->load->view("layout_auth/header_auth");
+        $this->load->view("auth/login", $data);
+        $this->load->view("layout_auth/footer_auth");
+
+        // $this->form_validation->set_rules('username', 'Username', 'trim|required', [
+        //     'required' => 'Nama Pengguna wajib diisi',
+        // ]);
+        // $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]', [
+        //     'required' => 'Kata Sandi wajib diisi',
+        //     'min_length' => 'Kata Sandi terlalu pendek',
+        // ]);
+        // if ($this->form_validation->run() == false) {
+        //     $this->load->view("layout_auth/header_auth");
+        //     $this->load->view("auth/login", $data);
+        //     $this->load->view("layout_auth/footer_auth");
+        // } else {
+        //     $this->cek_login();
+        // }
     }
-    private function cek_login()
+
+    function cek_login()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
@@ -53,13 +58,15 @@ class Auth extends CI_Controller
                     redirect(base_url('pustu'));
                 } else if ($user['role'] == 'apotek') {
                     redirect(base_url('apotek'));
+                } else if ($user['role'] == 'admin') {
+                    redirect(base_url('admin'));
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kata Sandi Salah!</div>');
                 redirect(base_url('auth'));
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username Belum Terdaftar! </div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun Pengguna Belum Terdaftar! </div>');
             redirect(base_url('auth'));
         }
     }
@@ -95,9 +102,9 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('confirm_password', 'Password', 'required|trim|matches[password]');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Registration';
-            $this->load->view("layout_auth/header_auth");
-            $this->load->view("auth/registrasi", $data);
-            $this->load->view("layout_auth/footer_auth");
+            // $this->load->view("layout_auth/header_auth");
+            // $this->load->view("auth/registrasi", $data);
+            // $this->load->view("layout_auth/footer_auth");
         } else {
             $data = [
                 'username' => htmlspecialchars($this->input->post('username', true)),

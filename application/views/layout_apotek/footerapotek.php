@@ -102,6 +102,89 @@
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<script>
+  var dataPasien = <?= json_encode($data_pasien) ?>;
+  console.log(dataPasien);
+
+  const xValues = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const yValues = [];
+
+  for (let i = 0; i < dataPasien.length; i++) {
+    yValues.push(dataPasien[i]['total']);
+  }
+
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{
+        label: 'Bulan',
+        data: yValues,
+        borderColor: "rgba(0,0,255,0.1)",
+        backgroundColor: ['aqua'],
+        fill: false,
+        pointRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+      }
+    }
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#selectedMonth").on("change", function() {
+      var selectedMonth = $(this).val();
+      filterDataByMonth(selectedMonth);
+    });
+
+    function filterDataByMonth(selectedMonth) {
+      // Mengirim permintaan AJAX ke server untuk memfilter data
+      $.ajax({
+        url: '<?= base_url('Apotek/filterDataByMonth/'); ?>' + selectedMonth,
+        method: "GET",
+        dataType: "json",
+        success: function(response) {
+          var data = response;
+          console.log(data);
+          if (data.length > 0) {
+            // Hapus DataTable yang ada
+            $("#datatable").DataTable().destroy();
+            // Hapus semua baris yang ada di tabel
+            $("#datatable tbody").empty();
+            // Tambahkan data yang diperoleh ke tabel
+            $.each(data, function(index, item) {
+              var newRow = $("<tr>");
+              newRow.append("<td><div class='d-flex px-2 py-1'><div class='d-flex flex-column justify-content-center'><p class='text-xs font-weight-bold mb-0'>" + (index + 1) + "</p></div></div></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.nama_obat + "</p></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.stok_awal + "</p></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.masuk + "</p></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.pemakaian + "</p></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.ed + "</p></td>");
+              newRow.append("<td><p class='text-xs font-weight-bold mb-0'>" + item.sisa_stok + "</p></td>");
+              $("#datatable tbody").append(newRow);
+            });
+            // Inisialisasi DataTable kembali
+            $("#datatable").DataTable();
+          } else {
+            $("#datatable").DataTable().clear().draw(); // Hapus semua baris dari DataTable
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("Terjadi kesalahan: " + xhr.status + " - " + error);
+        }
+      });
+    }
+  });
+</script>
+
 <script>
   $(document).ready(function() {
     $('#datatable').DataTable({

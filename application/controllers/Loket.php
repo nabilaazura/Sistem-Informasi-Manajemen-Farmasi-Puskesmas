@@ -9,15 +9,21 @@ class Loket extends CI_Controller
         $this->load->model('Pasien_model');
         $this->load->model('Pendaftaranpasien_model');
         $this->load->model('RekamMedis_model');
+        $this->load->model('Notifikasi_model');
     }
 
     function index()
     {
         if ($this->session->userdata('role') == 'loket') {
-            $data['judul'] = "Selamat Datang";
-            $this->load->view("layout_loket/header");
+            $data['menu'] = 'dashboard';
+            $data['total_pasien'] = $this->Pasien_model->total_pasien();
+            $data['total_pasien_bulan_ini'] = $this->Pasien_model->total_pasien_per_bulan();
+            $data['total_pasien_hari_ini'] = $this->Pasien_model->total_pasien_per_hari();
+            $data['data_pasien'] = $this->Pasien_model->get_pasien_by_month();
+
+            $this->load->view("layout_loket/header", $data);
             $this->load->view("loket/vw_dashboard", $data);
-            $this->load->view("layout_loket/footer");
+            $this->load->view("layout_loket/footer", $data);
         } else {
             redirect(base_url('auth'));
         }
@@ -25,7 +31,7 @@ class Loket extends CI_Controller
 
     function getDataPendaftaran()
     {
-        $data['judul'] = "Selamat Datang";
+        $data['menu'] = 'data pendaftaran';
         $data['data_pendaftaran'] = $this->Pendaftaranpasien_model->get();
 
         for ($i = 0; $i < count($data['data_pendaftaran']); $i++) {
@@ -40,22 +46,26 @@ class Loket extends CI_Controller
             $data['data_pendaftaran'][$i]['alamat'] = $dataPasien['alamat'];
         }
 
-        $this->load->view("layout_loket/header");
+        $this->load->view("layout_loket/header", $data);
         $this->load->view("loket/vw_datapendaftaran", $data);
         $this->load->view("layout_loket/footer");
         $this->load->database();
     }
+
     function getDataPasien()
     {
-        $data['judul'] = "Selamat Datang";
+        $data['menu'] = 'data pasien';
         $data['data_pasien'] = $this->Pasien_model->get();
-        $this->load->view("layout_loket/header");
+
+        $this->load->view("layout_loket/header", $data);
         $this->load->view("loket/vw_datapasien", $data);
         $this->load->view("layout_loket/footer");
     }
+
     function pendaftaranPasien()
     {
-        $data['judul'] = "Halaman Tambah Pasien";
+        $data['menu'] = 'data pasien';
+
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required', [
             'required' => 'Nama Pasien Wajib di Isi'
         ]);
@@ -76,7 +86,7 @@ class Loket extends CI_Controller
         ]);
 
         if ($this->form_validation->run() == false) {
-            $this->load->view("layout_loket/header");
+            $this->load->view("layout_loket/header", $data);
             $this->load->view("loket/vw_pasienbaru", $data);
             $this->load->view("layout_loket/footer");
         } else {
@@ -91,16 +101,29 @@ class Loket extends CI_Controller
                 'tanggal_registrasi' => $now,
             ];
             $this->Pasien_model->insert($data);
+
+            // Create notification
+            $notif = [
+                'id_user' => 7,
+                'pesan' => 'Pasien baru telah terdaftar dalam sistem',
+                'status' => 0,
+                'tanggal_notif' => $now
+            ];
+            $this->Notifikasi_model->insert($notif);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Baru Berhasil Ditambah!</div>');
             redirect(base_url('loket/pendaftaranPasien'));
         }
     }
+
     function cariPasien()
     {
         // $search_query = $this->input->get('search_query');
         // $data['results'] = $this->Pasien_model->search_data($search_query);
+        $data['menu'] = 'data pasien';
         $data['results'] = $this->Pasien_model->get();
-        $this->load->view("layout_loket/header");
+
+        $this->load->view("layout_loket/header", $data);
         $this->load->view("loket/vw_pasienlama", $data);
         $this->load->view("layout_loket/footer2");
     }
@@ -111,39 +134,6 @@ class Loket extends CI_Controller
     //     $results = $this->Pasien_model->search_data($search_query);
     //     echo json_encode($results);
     // }
-    function detailPasien($id_pasien)
-    {
-        $data['judul'] = "Halaman Detail Pasien";
-        $data['pasien'] = $this->Pasien_model->getById($id_pasien);
-        $data['riwayat_pasien'] = $this->Pendaftaranpasien_model->getByIdPasien($id_pasien);
-        $this->load->view("layout_loket/header");
-        $this->load->view("loket/vw_detailpasien", $data);
-        $this->load->view("layout_loket/footer");
-    }
-    function riwayatPasien($id_antrian)
-    {
-        $data['judul'] = "Halaman Riwayat Berobat Pasien";
-        $data['riwayat'] = $this->RekamMedis_model->getByIdPendaftaran($id_antrian);
-        $this->load->view("layout_loket/header");
-        $this->load->view("loket/vw_riwayatpasien", $data);
-        $this->load->view("layout_loket/footer");
-    }
-    function savedata()
-    {
-        $now = date('Y-m-d H:i:s');
-        $data = [
-            'nama_pasien' => $this->input->post('nama_pasien'),
-            'nik' => $this->input->post('nik'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'alamat' => $this->input->post('alamat'),
-            'no_hp' => $this->input->post('no_hp'),
-            'tanggal_registrasi' => $now,
-        ];
-        $this->Pasien_model->insert($data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Berhasil Ditambah!</div>');
-        redirect(base_url('loket/getdatapasien'));
-    }
     function antrianPasien()
     {
         $now = date('Y-m-d H:i:s');
@@ -159,5 +149,42 @@ class Loket extends CI_Controller
         $this->Pendaftaranpasien_model->insert($data);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pendaftaran Berhasil Ditambah!</div>');
         redirect(base_url('Loket/getDataPendaftaran'));
+    }
+    function detailPasien($id_pasien)
+    {
+        $data['menu'] = 'data pasien';
+        $data['pasien'] = $this->Pasien_model->getById($id_pasien);
+        $data['riwayat_pasien'] = $this->Pendaftaranpasien_model->getByIdPasien($id_pasien);
+
+        $this->load->view("layout_loket/header", $data);
+        $this->load->view("loket/vw_detailpasien", $data);
+        $this->load->view("layout_loket/footer");
+    }
+
+    function riwayatPasien($id_antrian)
+    {
+        $data['menu'] = 'data pasien';
+        $data['riwayat'] = $this->RekamMedis_model->getByIdPendaftaran($id_antrian);
+
+        $this->load->view("layout_loket/header", $data);
+        $this->load->view("loket/vw_riwayatpasien", $data);
+        $this->load->view("layout_loket/footer");
+    }
+
+    function savedata()
+    {
+        $now = date('Y-m-d H:i:s');
+        $data = [
+            'nama_pasien' => $this->input->post('nama_pasien'),
+            'nik' => $this->input->post('nik'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'alamat' => $this->input->post('alamat'),
+            'no_hp' => $this->input->post('no_hp'),
+            'tanggal_registrasi' => $now,
+        ];
+        $this->Pasien_model->insert($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Berhasil Ditambah!</div>');
+        redirect(base_url('loket/getdatapasien'));
     }
 }

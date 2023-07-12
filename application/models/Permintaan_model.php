@@ -12,6 +12,7 @@ class Permintaan_model extends CI_Model
     public function get()
     {
         $this->db->from($this->table);
+        $this->db->order_by('status', 'asc');
         $query = $this->db->get();
         return $query->result_array();
     }

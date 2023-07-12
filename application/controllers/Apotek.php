@@ -15,19 +15,23 @@ class Apotek extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Laporanapotek_model');
         $this->load->model('Pengeluaranapotek_model');
+        $this->load->model('Pasien_model');
     }
-
     function index()
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'dashboard';
+            $data['total_pasien'] = $this->Pasien_model->total_pasien();
+            $data['total_pasien_bulan_ini'] = $this->Pasien_model->total_pasien_per_bulan();
+            $data['total_pasien_hari_ini'] = $this->Pasien_model->total_pasien_per_hari();
+            $data['data_pasien'] = $this->Pasien_model->get_pasien_by_month();
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
             $this->load->view("layout_apotek/headerapotek", $data);
             $this->load->view("apotek/vw_dashboardapotek", $data);
-            $this->load->view("layout_apotek/footerapotek");
+            $this->load->view("layout_apotek/footerapotek", $data);
         } else {
             redirect(base_url('auth'));
         }
@@ -35,12 +39,12 @@ class Apotek extends CI_Controller
     function getObatApotek()
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['data_obat'] = $this->Obatapotek_model->get();
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
             $this->load->view("layout_apotek/headerapotek", $data);
             $this->load->view("apotek/vw_obatapotek", $data);
             $this->load->view("layout_apotek/footerapotek");
@@ -51,23 +55,12 @@ class Apotek extends CI_Controller
     function getPermintaanApotek()
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'permintaan obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
-            $data['results'] = $this->Obatgudang_model->get();
+            $data['results'] = $this->Obatgudang_model->getByName();
 
-            $data['judul'] = "Halaman Permintaan Obat";
-            // $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
-            //     'required' => 'Kode Obat Wajib di Isi'
-            // ]);
-            // $this->form_validation->set_rules('nama_obat', 'Nama Obat', 'required', [
-            //     'required' => 'Nama Obat Wajib di Isi'
-            // ]);
-            // $this->form_validation->set_rules('satuan', 'Satuan/Kemasan', 'required', [
-            //     'required' => 'Satuan/Kemasan Wajib di Isi'
-            // ]);
             $this->form_validation->set_rules('permintaan', 'Permintaan', 'required', [
                 'required' => 'Permintaan Wajib Wajib di Isi'
             ]);
@@ -112,10 +105,9 @@ class Apotek extends CI_Controller
     function detailResep($id_pendaftaran)
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'resep';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['riwayat_resep'] = $this->Resep_model->getByIdPendaftaran($id_pendaftaran);
             $this->load->view("layout_apotek/headerapotek", $data);
@@ -128,10 +120,9 @@ class Apotek extends CI_Controller
     function resepPasien()
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'resep';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $data['resep'] = $this->Resep_model->get();
@@ -142,13 +133,12 @@ class Apotek extends CI_Controller
             redirect(base_url('auth'));
         }
     }
-
     function getPemasukanApotek()
     {
         if ($this->session->userdata('role') == 'apotek') {
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $data['judul'] = "Halaman Tambah Obat";
@@ -216,38 +206,34 @@ class Apotek extends CI_Controller
     function EditObat($id)
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['obat_apotek'] = $this->Obatapotek_model->getById($id);
 
-            $now = date('Y-m-d H:i:s');
-            if ($this->form_validation->run() == false) {
-                $data['judul'] = "Halaman Perubahan Obat";
-                $data['obat_apotek'] = $this->Obatapotek_model->getById($id);
-                $this->load->view("layout_apotek/headerapotek", $data);
-                $this->load->view("apotek/vw_editobatapotek", $data);
-                $this->load->view("layout_apotek/footerapotek");
-            } else {
-
-                $data = [
-                    'kode_obat' => $this->input->post('kode_obat'),
-                    'nama_obat' => $this->input->post('nama_obat'),
-                    'satuan' => $this->input->post('satuan'),
-                    'harga_satuan' => $this->input->post('harga_satuan'),
-                    'jumlah_masuk' => $this->input->post('jumlah_masuk'),
-                    'tanggal_masuk' => $now,
-                    'expire' => $this->input->post('expire'),
-                ];
-                $id = $this->input->post('id_obat');
-                $this->Obatapotek_model->update(['id_obat' => $id], $data);
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Diubah!</div>');
-                redirect(base_url('Apotek/getObatApotek'));
-            }
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_editobatapotek", $data);
+            $this->load->view("layout_apotek/footerapotek");
         } else {
             redirect(base_url('auth'));
         }
+    }
+    function update()
+    {
+        $now = date('Y-m-d H:i:s');
+        $data = [
+            'kode_obat' => $this->input->post('kode_obat'),
+            'nama_obat' => $this->input->post('nama_obat'),
+            'satuan' => $this->input->post('satuan'),
+            'harga_satuan' => $this->input->post('harga_satuan'),
+            'jumlah_masuk' => $this->input->post('jumlah_masuk'),
+            'tanggal_masuk' => $now,
+            'expire' => $this->input->post('expire'),
+        ];
+        $id_obat = $this->input->post('id_obat');
+        $this->Obatapotek_model->update(['id_obat' => $id_obat], $data);
+        redirect(base_url('Apotek/getObatApotek'));
     }
     function hapus($id_obat)
     {
@@ -270,31 +256,15 @@ class Apotek extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Obat Berhasil Ditambah!</div>');
         redirect(base_url('Apotek/getObatApotek'));
     }
-    function update()
-    {
-        $now = date('Y-m-d H:i:s');
-        $data = [
-            'kode_obat' => $this->input->post('kode_obat'),
-            'nama_obat' => $this->input->post('nama_obat'),
-            'satuan' => $this->input->post('satuan'),
-            'harga_satuan' => $this->input->post('harga_satuan'),
-            'jumlah_masuk' => $this->input->post('jumlah_masuk'),
-            'tanggal_masuk' => $now,
-            'expire' => $this->input->post('expire'),
-        ];
-        $id_obat = $this->input->post('id_obat');
-        $this->Obatapotek_model->update(['id_obat' => $id_obat], $data);
-        redirect(base_url('Apotek/getObatApotek'));
-    }
     function laporanApotek()
     {
         if ($this->session->userdata('role') == 'apotek') {
-            $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'laporan apotek';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['data_laporan'] = $this->Laporanapotek_model->get();
+
             $this->load->view("layout_apotek/headerapotek", $data);
             $this->load->view("apotek/vw_laporanapotek", $data);
             $this->load->view("layout_apotek/footerapotek");
@@ -376,9 +346,8 @@ class Apotek extends CI_Controller
         if ($this->session->userdata('role') == 'apotek') {
             $idUser = $this->session->userdata('id');
 
-            $data['judul'] = "Selamat Datang";
+            $data['menu'] = 'pengeluaran obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
-            // $data['results'] = $this->Obatpustu_model->get();
             $data['results_baru'] = $this->Obatapotek_model->getByName();
 
             $this->form_validation->set_rules('status_pengeluaran', 'Status Pengeluaran', 'required', [
@@ -386,7 +355,6 @@ class Apotek extends CI_Controller
             ]);
 
             if ($this->form_validation->run() == false) {
-                // var_dump($data['results_baru']);
                 $this->load->view("layout_apotek/headerapotek", $data);
                 $this->load->view("apotek/vw_pengeluaranapotek", $data);
                 $this->load->view("layout_apotek/footerapotek2");
@@ -508,6 +476,15 @@ class Apotek extends CI_Controller
             }
         } else {
             redirect(base_url('auth'));
+        }
+    }
+    public function filterDataByMonth($selectedMonth)
+    {
+        try {
+            $data = $this->Laporanapotek_model->filterDataBySelectedMonth($selectedMonth);
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo "Terjadi kesalahan: " . $e->getMessage();
         }
     }
 }

@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="nik" class="form-control-label">NIK</label>
-                            <input name="nik" class="form-control" type="number" min="16" max="16" placeholder="NIK" id="nik">
+                            <input name="nik" class="form-control" type="number" placeholder="NIK" id="nik">
                             <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">

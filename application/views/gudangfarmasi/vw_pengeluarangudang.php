@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Status Pengeluaran</label>
                                 <select name="status_pengeluaran" class="form-control" id="status_pengeluaran">
-                                    <option value="permintaan_poned">Permintaan Gudang Farmasi</option>
+                                    <option value="permintaan_gudang">Permintaan Gudang Farmasi</option>
                                     <option value="obat_expire">Obat Expire</option>
                                 </select>
                                 <?= form_error('status_pengeluaran', '<small class="text-danger pl-3">', '</small>'); ?>

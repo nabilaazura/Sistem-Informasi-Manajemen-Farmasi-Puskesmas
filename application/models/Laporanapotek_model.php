@@ -15,6 +15,7 @@ class Laporanapotek_model extends CI_Model
         $this->db->from('laporan_apotek, obat_apotek');
         $this->db->where('laporan_apotek.id_obat = obat_apotek.id_obat');
         $this->db->where('laporan_apotek.id_laporan_apotek IN (SELECT MAX(id_laporan_apotek) FROM laporan_apotek GROUP BY id_obat)');
+        $this->db->where('MONTH(tanggal_masuk)', date('m'));
         $this->db->group_by('obat_apotek.nama_obat');
         $query = $this->db->get();
         return $query->result_array();
@@ -25,6 +26,18 @@ class Laporanapotek_model extends CI_Model
         $this->db->where('id_laporan_apotek', $id_laporan_apotek);
         $query = $this->db->get();
         return $query->row_array();
+    }
+    public function filterDataBySelectedMonth($selectedMonth)
+    {
+        $this->db->select('obat_apotek.nama_obat, SUM(stok_awal) AS "stok_awal", SUM(masuk) AS "masuk", SUM(pemakaian) AS "pemakaian", SUM(ed) AS "ed", SUM(sisa_stok) AS "sisa_stok"');
+        $this->db->from('laporan_apotek, obat_apotek');
+        $this->db->where('laporan_apotek.id_obat = obat_apotek.id_obat');
+        $this->db->where('laporan_apotek.id_laporan_apotek IN (SELECT MAX(id_laporan_apotek) FROM laporan_apotek GROUP BY id_obat)');
+        $this->db->where('MONTH(tanggal_masuk)', $selectedMonth);
+
+        $this->db->group_by('obat_apotek.nama_obat');
+        $query = $this->db->get();
+        return $query->result();
     }
     public function insert($data)
     {
