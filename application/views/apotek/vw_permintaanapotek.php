@@ -1,6 +1,6 @@
 <form action="" method="POST">
     <div class="container-fluid py-4">
-        <?= $this->session->flashdata('message'); ?>
+        <!-- <?= $this->session->flashdata('message'); ?> -->
         <div class="row">
             <div class="col-lg-12 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
@@ -45,6 +45,7 @@
                                 <a href="<?= base_url('Apotek/getPermintaanApotek') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;
                                 <button type="submit" class=" btn bg-gradient-primary" style="background-color: white;">Kirim</button>
                             </div>
+
                         </form>
                     </div>
                 </div>

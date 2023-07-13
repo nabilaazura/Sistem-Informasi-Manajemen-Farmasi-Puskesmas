@@ -140,3 +140,48 @@
 
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- #popup -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if success flashdata exists
+    <?php if ($this->session->flashdata('success_permintaan_obat')) : ?>
+        swal("Permintaan Obat Berhasil Dikirim", "<?php echo $this->session->flashdata('success'); ?>", "success");
+    <?php endif; ?>
+</script>
+
+<!-- #popup pengeluaran sukses -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if success flashdata exists
+    <?php if ($this->session->flashdata('success_pengeluaran_obat')) : ?>
+        swal("Data Pengeluaran Obat Berhasil Disimpan!", "<?php echo $this->session->flashdata('success'); ?>", "success");
+    <?php endif; ?>
+</script>
+
+<!-- #popup pengeluaran sukses -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if success flashdata exists
+    <?php if ($this->session->flashdata('successED_pengeluaran_obat')) : ?>
+        swal("Data Obat Expired Berhasil Dihapus!", "<?php echo $this->session->flashdata('success'); ?>", "success");
+    <?php endif; ?>
+</script>
+
+<!-- #popup pengeluaran stok kurang -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if error flashdata exists
+    <?php if ($this->session->flashdata('info_pengeluaran_obat')) : ?>
+        swal("Stok Obat Tidak Cukup!", "<?php echo $this->session->flashdata('info'); ?>", "info");
+    <?php endif; ?>
+</script>
+
+<!-- #popup pengeluaran tidak ada yg Expired -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if error flashdata exists
+    <?php if ($this->session->flashdata('error_pengeluaran_obat')) : ?>
+        swal("Tidak Ada Obat Yang Expired!", "<?php echo $this->session->flashdata('error'); ?>", "error");
+    <?php endif; ?>
+</script>

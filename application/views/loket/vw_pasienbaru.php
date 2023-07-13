@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="nik" class="form-control-label">NIK</label>
-                            <input name="nik" class="form-control" type="number" placeholder="NIK" id="nik">
+                            <input name="nik" class="form-control" type="text" maxlength="16" placeholder="NIK" id="nik">
                             <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-group">
@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="no_hp" class="form-control-label">No HP</label>
-                                <input name="no_hp" class="form-control" type="number" placeholder="No HP" id="no_hp">
+                                <input name="no_hp" class="form-control" type="text" maxlength="12" placeholder="No HP" id="no_hp">
                                 <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">

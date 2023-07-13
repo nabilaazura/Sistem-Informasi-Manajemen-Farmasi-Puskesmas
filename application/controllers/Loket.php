@@ -64,7 +64,7 @@ class Loket extends CI_Controller
 
     function pendaftaranPasien()
     {
-        $data['menu'] = 'data pasien';
+        $data['menu'] = 'data pendaftaran';
 
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required', [
             'required' => 'Nama Pasien Wajib di Isi'
@@ -112,7 +112,7 @@ class Loket extends CI_Controller
             $this->Notifikasi_model->insert($notif);
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pasien Baru Berhasil Ditambah!</div>');
-            redirect(base_url('loket/pendaftaranPasien'));
+            redirect(base_url('loket/getDataPendaftaran'));
         }
     }
 

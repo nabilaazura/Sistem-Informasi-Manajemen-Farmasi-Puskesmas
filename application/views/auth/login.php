@@ -1,6 +1,6 @@
 <!--
 =========================================================
-* Argon Dashboard 2 - v2.0.4
+* Sistem Informasi Puskesmas Rawat Inap Sidomulyo
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/argon-dashboard

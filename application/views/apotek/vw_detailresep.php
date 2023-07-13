@@ -18,6 +18,9 @@
                         <div class="mt-4">
                             <button type="button" class="btn btn-primary">Cetak</button>
                         </div>
+                        <!-- <a href="<?= base_url('apotek/cetak_resep'); ?>" type="button" class="btn btn-primary float-end" ps-3>
+                            <i class="fa-solid fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Laporan
+                        </a> -->
                     </form>
                 </div>
             </div>

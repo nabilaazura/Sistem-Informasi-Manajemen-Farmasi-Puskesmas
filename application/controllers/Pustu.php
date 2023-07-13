@@ -95,7 +95,7 @@ class Pustu extends CI_Controller
                 ];
                 $this->Notifikasi_model->insert($datanotif);
 
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Permintaan Obat Berhasil Dikirim!</div>');
+                $this->session->set_flashdata('success_permintaan_obat', 'Data Permintaan Obat Berhasil Dikirim.');
                 redirect(base_url('Pustu/getPermintaanPustu'));
             }
         } else {
@@ -329,7 +329,7 @@ class Pustu extends CI_Controller
 
                     // Cek stok
                     if ($jumlah_keluar > $jumlah_lama) {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Stok Obat Tidak Cukup!</div>');
+                        $this->session->set_flashdata('info_pengeluaran_obat', 'Stok Obat Tidak Cukup!');
                         redirect(base_url('Pustu/getPengeluaranPustu'));
                     }
 
@@ -403,7 +403,7 @@ class Pustu extends CI_Controller
                         }
                     }
 
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Pengeluaran Obat Berhasil Disimpan!</div>');
+                    $this->session->set_flashdata('success_pengeluaran_obat', 'Data Pengeluaran Obat Berhasil Disimpan!');
                     redirect(base_url('Pustu/getPengeluaranPustu'));
                 } else if ($status_pengeluaran == 'obat_expire') {
                     $dataObatExpired = $this->Obatpustu_model->getObatExpired($this->input->post('nama_obat'));
@@ -427,10 +427,10 @@ class Pustu extends CI_Controller
                             $this->Laporanpustu_model->insert($laporan);
                         }
 
-                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><strong>Berhasil!</strong> Data Obat Expired Berhasil Dihapus!</div>');
+                        $this->session->set_flashdata('successED_pengeluaran_obat', 'Data Obat Expired Berhasil Dihapus!');
                         redirect(base_url('Pustu/getPengeluaranPustu'));
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><strong>Gagal!</strong> Tidak Ada Obat Yang Expired!</div>');
+                        $this->session->set_flashdata('error_pengeluaran_obat', 'Tidak Ada Obat Yang Expired!');
                         redirect(base_url('Pustu/getPengeluaranPustu'));
                     }
                 }
