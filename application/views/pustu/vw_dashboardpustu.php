@@ -6,9 +6,9 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total pasien</p>
+                <a href="pustu/obatMasuk" class="text-sm mb-0 text-uppercase font-weight-bold">Total Obat Masuk</a>
                 <h5 class="font-weight-bolder">
-                  <?= $total_pasien['total']; ?>
+                  <?= $obat_masuk['total_obat'] ?>
                 </h5>
               </div>
             </div>
@@ -27,9 +27,9 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Pasien Bulan Ini</p>
+                <a href="pustu/obatKeluar" class="text-sm mb-0 text-uppercase font-weight-bold">Total Obat Keluar</a>
                 <h5 class="font-weight-bolder">
-                  <?= $total_pasien_bulan_ini['total']; ?>
+                  <?= $obat_keluar['total_obat'] ?>
                 </h5>
               </div>
             </div>
@@ -42,37 +42,16 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
-      <div class="card">
-        <div class="card-body p-3">
-          <div class="row">
-            <div class="col-8">
-              <div class="numbers">
-                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Pasien Hari Ini</p>
-                <h5 class="font-weight-bolder">
-                  <?= $total_pasien_hari_ini['total']; ?>
-                </h5>
-              </div>
-            </div>
-            <div class="col-4 text-end">
-              <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-              </div>
-            </div>
+    <div class="row mt-4">
+      <div class="col-lg-12 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100">
+          <div class="card-header pb-0 pt-3 bg-transparent">
+            <h6 class="text-capitalize">Total Obat Keluar</h6>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-lg-12 mb-lg-0 mb-4">
-      <div class="card z-index-2 h-100">
-        <div class="card-header pb-0 pt-3 bg-transparent">
-          <h6 class="text-capitalize">Total Pasien Per Bulan</h6>
-        </div>
-        <div class="card-body p-3">
-          <div class="chart">
-            <canvas id="myChart" class="chart-canvas" height="100px"></canvas>
+          <div class="card-body p-3">
+            <div class="chart">
+              <canvas id="myChart" class="chart-canvas" height="100px"></canvas>
+            </div>
           </div>
         </div>
       </div>

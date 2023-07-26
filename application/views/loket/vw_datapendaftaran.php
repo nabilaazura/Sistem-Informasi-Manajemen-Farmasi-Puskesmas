@@ -4,8 +4,8 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <a href="<?= base_url(); ?>Loket/pendaftaranPasien" class="btn btn-primary float-end ml-3" style="margin-left: 10px;">Pasien Baru</a>
-          <a href="<?= base_url(); ?>Loket/cariPasien" class="btn btn-outline-primary float-end ml-3 ps-3">Pasien Lama</a>
+          <a href="<?= base_url(); ?>Loket/pendaftaranPasien" class="btn btn-primary float-end ml-3" style="margin-left: 10px;">Formulir Pasien Baru</a>
+          <a href="<?= base_url(); ?>Loket/cariPasien" class="btn btn-outline-primary float-end ml-3 ps-3">Formulir Berobat</a>
           <!-- <div class="row"> -->
           <!-- <div class="col-8"> -->
           <h6>Data Pendaftaran Pasien</h6>

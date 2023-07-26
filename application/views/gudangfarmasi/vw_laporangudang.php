@@ -125,7 +125,6 @@
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0"><?= $laporan_gudang['sisastok_dak']; ?></p>
                                         </td>
-
                                     </tr>
                                     <?php $i += 1; ?>
                                 <?php endforeach; ?>

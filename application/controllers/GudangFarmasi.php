@@ -24,6 +24,7 @@ class GudangFarmasi extends CI_Controller
 
             $data['menu'] = 'dashboard';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
             $data['obat_masuk'] = $this->Obatgudang_model->total_obat_masuk();
             $data['obat_keluar'] = $this->Pengeluarangudang_model->total_obat_keluar();
             $data['obat_masuk_per_pengadaan'] = $this->Obatgudang_model->total_obat_masuk_per_pengadaan();
@@ -79,18 +80,14 @@ class GudangFarmasi extends CI_Controller
             $data['menu'] = 'pengadaan obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
-            $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
-                'required' => 'Kode Obat Wajib di Isi'
-            ]);
+
             $this->form_validation->set_rules('nama_obat', 'Nama Obat', 'required', [
                 'required' => 'Nama Obat Wajib di Isi'
             ]);
             $this->form_validation->set_rules('satuan', 'Satuan/Kemasan', 'required', [
                 'required' => 'Satuan/Kemasan Wajib di Isi'
             ]);
-            $this->form_validation->set_rules('harga_satuan', 'Harga Satuan', 'required', [
-                'required' => 'Harga Satuan Wajib Wajib di Isi'
-            ]);
+
             $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
                 'required' => 'Jumlah Masuk Wajib di Isi'
             ]);
@@ -111,7 +108,7 @@ class GudangFarmasi extends CI_Controller
 
                 $data = [
                     'kode_obat' => $this->input->post('kode_obat'),
-                    'nama_obat' => $this->input->post('nama_obat'),
+                    'nama_obat' => ucwords(trim(strtolower($this->input->post('nama_obat')))),
                     'satuan' => $this->input->post('satuan'),
                     'harga_satuan' => $this->input->post('harga_satuan'),
                     'jumlah_masuk' => $this->input->post('jumlah_masuk'),
@@ -172,6 +169,11 @@ class GudangFarmasi extends CI_Controller
             $data['lplpo_pustu'] = $this->LPLPO_model->getLplpoPustu();
             $data['lplpo_poned'] = $this->LPLPO_model->getLplpoPoned();
 
+            // print_r($data['lplpo_gudang']);
+            // print_r($data['lplpo_apotek']);
+            // print_r($data['lplpo_pustu']);
+            // print_r($data['lplpo_poned']);
+
             $this->load->view("layout_gudangfarmasi/headergudang", $data);
             $this->load->view("gudangfarmasi/vw_laporan", $data);
             $this->load->view("layout_gudangfarmasi/footergudang");
@@ -201,6 +203,20 @@ class GudangFarmasi extends CI_Controller
     {
         try {
             $data = $this->Laporangudang_model->filterDataBySelectedMonth($selectedMonth);
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo "Terjadi kesalahan: " . $e->getMessage();
+        }
+    }
+
+    public function filterDataLplpoByMonth($selectedMonth)
+    {
+        try {
+            // $data = $this->Laporangudang_model->filterDataBySelectedMonth($selectedMonth);
+            $data['lplpo_gudang'] = $this->LPLPO_model->getLplpoGudangByMonth($selectedMonth);
+            $data['lplpo_apotek'] = $this->LPLPO_model->getLplpoApotekByMonth($selectedMonth);
+            $data['lplpo_pustu'] = $this->LPLPO_model->getLplpoPustuByMonth($selectedMonth);
+            $data['lplpo_poned'] = $this->LPLPO_model->getLplpoPonedByMonth($selectedMonth);
             echo json_encode($data);
         } catch (Exception $e) {
             echo "Terjadi kesalahan: " . $e->getMessage();
@@ -686,5 +702,45 @@ class GudangFarmasi extends CI_Controller
         $dompdf->load_html($html);
         $dompdf->render();
         $dompdf->stream('Laporan LPLPO ' . date('Y'), array("Attachment" => false));
+    }
+    public function obatMasuk()
+    {
+        if ($this->session->userdata('role') == 'gudangfarmasi') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat'] = $this->Obatgudang_model->get();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_gudangfarmasi/headergudang", $data);
+            $this->load->view("gudangfarmasi/vw_obatmasuk", $data);
+            $this->load->view("layout_gudangfarmasi/footergudang");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    public function obatKeluar()
+    {
+        if ($this->session->userdata('role') == 'gudangfarmasi') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat_keluar'] = $this->Pengeluarangudang_model->obat_keluar_gudang();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_gudangfarmasi/headergudang", $data);
+            $this->load->view("gudangfarmasi/vw_obatkeluar", $data);
+            $this->load->view("layout_gudangfarmasi/footergudang");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+
+    public function calculateDaysLeft($targetDate)
+    {
+        $currentDate = date('Y-m-d');
+        $diff = strtotime($targetDate) - strtotime($currentDate);
+
+        return floor($diff / (60 * 60 * 24));
     }
 }

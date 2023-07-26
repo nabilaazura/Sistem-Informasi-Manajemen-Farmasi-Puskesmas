@@ -74,4 +74,19 @@ class Obatponed_model extends CI_Model
         $this->db->update($this->table, ['jumlah_masuk' => $stok], ['id_obat' => $id_obat]);
         return $this->db->affected_rows();
     }
+    public function total_obat_masuk()
+    {
+        $this->db->select('SUM(jumlah_masuk) AS total_obat');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function obat_masuk_poned()
+    {
+
+        $this->db->select('kode_obat, nama_obat, jumlah_masuk');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

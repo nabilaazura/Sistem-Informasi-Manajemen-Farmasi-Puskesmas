@@ -21,10 +21,9 @@ class Poned extends CI_Controller
             $idUser = $this->session->userdata('id');
             $data['menu'] = 'dashboard';
 
-            $data['total_pasien'] = $this->Pasien_model->total_pasien();
-            $data['total_pasien_bulan_ini'] = $this->Pasien_model->total_pasien_per_bulan();
-            $data['total_pasien_hari_ini'] = $this->Pasien_model->total_pasien_per_hari();
-            $data['data_pasien'] = $this->Pasien_model->get_pasien_by_month();
+            $data['obat_masuk'] = $this->Obatponed_model->total_obat_masuk();
+            $data['obat_keluar'] = $this->Pengeluaranponed_model->total_obat_keluar();
+            $data['top_ten_obat_keluar_poned'] = $this->Pengeluaranponed_model->top_ten_obat_keluar_poned();
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $this->load->view("layout_poned/headerponed", $data);
@@ -109,17 +108,12 @@ class Poned extends CI_Controller
             $data['menu'] = 'obat';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
-            $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
-                'required' => 'Kode Obat Wajib di Isi'
-            ]);
+
             $this->form_validation->set_rules('nama_obat', 'Nama Obat', 'required', [
                 'required' => 'Nama Obat Wajib di Isi'
             ]);
             $this->form_validation->set_rules('satuan', 'Satuan/Kemasan', 'required', [
                 'required' => 'Satuan/Kemasan Wajib di Isi'
-            ]);
-            $this->form_validation->set_rules('harga_satuan', 'Harga Satuan', 'required', [
-                'required' => 'Harga Satuan Wajib Wajib di Isi'
             ]);
             $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
                 'required' => 'Jumlah Masuk Wajib di Isi'
@@ -135,7 +129,7 @@ class Poned extends CI_Controller
             } else {
                 $now = date('Y-m-d H:i:s');
                 $kode_obat = $this->input->post('kode_obat');
-                $nama_obat = ucwords(strtolower($this->input->post('nama_obat')));
+                $nama_obat = ucwords(trim(strtolower($this->input->post('nama_obat'))));
                 $jumlah_masuk = $this->input->post('jumlah_masuk');
 
                 $data = [
@@ -452,6 +446,38 @@ class Poned extends CI_Controller
                     }
                 }
             }
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    public function obatMasuk()
+    {
+        if ($this->session->userdata('role') == 'poned') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat'] = $this->Obatponed_model->get();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_poned/headerponed", $data);
+            $this->load->view("poned/vw_obatmasukponed", $data);
+            $this->load->view("layout_poned/footerponed");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    public function obatKeluar()
+    {
+        if ($this->session->userdata('role') == 'poned') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat_keluar'] = $this->Pengeluaranponed_model->obat_keluar_poned();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_poned/headerponed", $data);
+            $this->load->view("poned/vw_obatkeluarponed", $data);
+            $this->load->view("layout_poned/footerponed");
         } else {
             redirect(base_url('auth'));
         }

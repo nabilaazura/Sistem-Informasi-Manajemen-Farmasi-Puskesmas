@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <label for="kode_obat" class="form-control-label">Kode</label>
                                 <input name="kode_obat" class="form-control" type="text" placeholder="Kode Obat" id="example-text-input">
-                                <?= form_error('kode_obat', '<small class="text-danger pl-3">', '</small>'); ?>
+
                             </div>
                             <div class="form-group">
                                 <label for="nama_obat" class="form-control-label">Nama Obat</label>
@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="harga" class="form-control-label">Harga Satuan</label>
                                 <input name="harga_satuan" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
-                                <?= form_error('harga_satuan', '<small class="text-danger pl-3">', '</small>'); ?>
+
                             </div>
                             <div class="form-group">
                                 <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>

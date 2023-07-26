@@ -68,4 +68,19 @@ class Obatapotek_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function total_obat_masuk()
+    {
+        $this->db->select('SUM(jumlah_masuk) AS total_obat');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function obat_masuk_apotek()
+    {
+
+        $this->db->select('kode_obat, nama_obat, jumlah_masuk');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

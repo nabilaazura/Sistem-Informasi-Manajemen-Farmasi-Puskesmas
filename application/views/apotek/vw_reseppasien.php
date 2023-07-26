@@ -13,7 +13,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3">No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Kunjungan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pasien</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Detail Resep</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,6 +35,7 @@
                                         </td>
                                         <td class="align-middle text-sm">
                                             <a href="<?= base_url('apotek/detailResep/') . $data['id_pendaftaran']; ?>" class="badge badge-sm bg-gradient-success">Detail</a>
+                                            <a href="<?= base_url('apotek/cetak_resep/') . $data['id_pendaftaran']; ?>" class="badge badge-sm bg-primary">Cetak Resep</a>
                                         </td>
                                     </tr>
                                     <?php $i += 1; ?>

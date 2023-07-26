@@ -93,4 +93,12 @@ class Obatgudang_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function obat_masuk_gudang()
+    {
+
+        $this->db->select('kode_obat, nama_obat, jumlah_masuk');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

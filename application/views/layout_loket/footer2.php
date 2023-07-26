@@ -109,3 +109,12 @@
 </script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- #popup menambahkan pasien baru -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check if success flashdata exists
+    <?php if ($this->session->flashdata('success_tambah_pasien')) : ?>
+        swal("Data Pasien Baru Berhasil Ditambahkan", "<?php echo $this->session->flashdata('success'); ?>", "success");
+    <?php endif; ?>
+</script>

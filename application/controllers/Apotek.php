@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Dompdf\Dompdf;
+
 class Apotek extends CI_Controller
 {
     public function __construct()
@@ -23,10 +25,9 @@ class Apotek extends CI_Controller
             $idUser = $this->session->userdata('id');
 
             $data['menu'] = 'dashboard';
-            $data['total_pasien'] = $this->Pasien_model->total_pasien();
-            $data['total_pasien_bulan_ini'] = $this->Pasien_model->total_pasien_per_bulan();
-            $data['total_pasien_hari_ini'] = $this->Pasien_model->total_pasien_per_hari();
-            $data['data_pasien'] = $this->Pasien_model->get_pasien_by_month();
+            $data['obat_masuk'] = $this->Obatapotek_model->total_obat_masuk();
+            $data['obat_keluar'] = $this->Pengeluaranapotek_model->total_obat_keluar();
+            $data['top_ten_obat_keluar_apotek'] = $this->Pengeluaranapotek_model->top_ten_obat_keluar_apotek();
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $this->load->view("layout_apotek/headerapotek", $data);
@@ -117,6 +118,25 @@ class Apotek extends CI_Controller
             redirect(base_url('auth'));
         }
     }
+
+    public function cetak_resep($id_pendaftaran)
+    {
+        $dompdf = new Dompdf();
+        $data['riwayat_resep'] = $this->Resep_model->getByIdPendaftaran($id_pendaftaran);
+        // var_dump($data['riwayat_resep']['resep']);
+        // $data['nama_pasien'] = $this->Resep_model->get($id_resep);
+        $data['tanggal_pendaftaran'] = $this->Pendaftaranpasien_model->getByIdPendaftaran($id_pendaftaran);
+        // $data['lplpo_pustu'] = $this->LPLPO_model->getLplpoPustu();
+        // $data['lplpo_poned'] = $this->LPLPO_model->getLplpoPoned();
+        // echo htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+
+        $dompdf->setPaper('A9', 'horizontal');
+        $html = $this->load->view('apotek/resep_resi', $data, true);
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream('Resi Obat Pasien ' . date('Y'), array("Attachment" => false));
+    }
+
     function resepPasien()
     {
         if ($this->session->userdata('role') == 'apotek') {
@@ -142,18 +162,14 @@ class Apotek extends CI_Controller
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $data['judul'] = "Halaman Tambah Obat";
-            $this->form_validation->set_rules('kode_obat', 'Kode Obat', 'required', [
-                'required' => 'Kode Obat Wajib di Isi'
-            ]);
+
             $this->form_validation->set_rules('nama_obat', 'Nama Obat', 'required', [
                 'required' => 'Nama Obat Wajib di Isi'
             ]);
             $this->form_validation->set_rules('satuan', 'Satuan/Kemasan', 'required', [
                 'required' => 'Satuan/Kemasan Wajib di Isi'
             ]);
-            $this->form_validation->set_rules('harga_satuan', 'Harga Satuan', 'required', [
-                'required' => 'Harga Satuan Wajib Wajib di Isi'
-            ]);
+
             $this->form_validation->set_rules('jumlah_masuk', 'Jumlah Masuk', 'required', [
                 'required' => 'Stok Wajib di Isi'
             ]);
@@ -169,7 +185,7 @@ class Apotek extends CI_Controller
                 $now = date('Y-m-d H:i:s');
                 $data = [
                     'kode_obat' => $this->input->post('kode_obat'),
-                    'nama_obat' => ucwords(strtolower($this->input->post('nama_obat'))),
+                    'nama_obat' => ucwords(trim(strtolower($this->input->post('nama_obat')))),
                     'satuan' => $this->input->post('satuan'),
                     'harga_satuan' => $this->input->post('harga_satuan'),
                     'jumlah_masuk' => $this->input->post('jumlah_masuk'),
@@ -485,6 +501,38 @@ class Apotek extends CI_Controller
             echo json_encode($data);
         } catch (Exception $e) {
             echo "Terjadi kesalahan: " . $e->getMessage();
+        }
+    }
+    public function obatMasuk()
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat'] = $this->Obatapotek_model->get();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_obatmasukapotek", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    public function obatKeluar()
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'dashboard';
+            $data['data_obat_keluar'] = $this->Pengeluaranapotek_model->obat_keluar_apotek();
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_obatkeluarapotek", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
         }
     }
 }

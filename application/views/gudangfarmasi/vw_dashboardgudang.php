@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Obat Masuk</p>
+                <a href="gudangfarmasi/obatMasuk" class="text-sm mb-0 text-uppercase font-weight-bold">Total Obat Masuk</a>
                 <h5 class="font-weight-bolder">
                   <?= $obat_masuk['total_obat'] ?>
                 </h5>
@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Obat Keluar</p>
+                <a href="gudangfarmasi/obatKeluar" class=" text-sm mb-0 text-uppercase font-weight-bold">Total Obat Keluar</a>
                 <h5 class="font-weight-bolder">
                   <?= $obat_keluar['total_obat'] ?>
                 </h5>

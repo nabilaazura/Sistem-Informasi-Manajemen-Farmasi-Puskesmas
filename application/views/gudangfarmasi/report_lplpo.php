@@ -1,3 +1,51 @@
+<?php
+
+function getMonthName($monthNumber)
+{
+    $monthName = "";
+
+    switch ($monthNumber) {
+        case "01":
+            $monthName = "Januari";
+            break;
+        case "02":
+            $monthName = "Februari";
+            break;
+        case "03":
+            $monthName = "Maret";
+            break;
+        case "04":
+            $monthName = "April";
+            break;
+        case "05":
+            $monthName = "Mei";
+            break;
+        case "06":
+            $monthName = "Juni";
+            break;
+        case "07":
+            $monthName = "Juli";
+            break;
+        case "08":
+            $monthName = "Agustus";
+            break;
+        case "09":
+            $monthName = "September";
+            break;
+        case "10":
+            $monthName = "Oktober";
+        case "11":
+            $monthName = "November";
+            break;
+        case "12":
+            $monthName = "Desember";
+            break;
+    }
+
+    return $monthName;
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +76,7 @@
     <center>
         <h4>
             Laporan Pemakaian dan Lembar Permintaan Obat <br />
-            Puskesmas Rawat Inap Sidomulyo Bulan <?= date('M') ?>
+            Puskesmas Rawat Inap Sidomulyo Bulan <?= getMonthName(date('m')) ?>
         </h4>
     </center>
     <table id="customermeta" width="100%">

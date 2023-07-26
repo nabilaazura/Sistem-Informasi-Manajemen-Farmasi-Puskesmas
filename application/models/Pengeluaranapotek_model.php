@@ -27,4 +27,30 @@ class Pengeluaranapotek_model extends CI_Model
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
+    public function total_obat_keluar()
+    {
+        $this->db->select('SUM(jumlah) AS total_obat');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    public function top_ten_obat_keluar_apotek()
+    {
+        $this->db->select('obat_apotek.nama_obat, SUM(jumlah) AS total');
+        $this->db->from('pengeluaran_apotek, obat_apotek');
+        $this->db->where('obat_apotek.id_obat = pengeluaran_apotek.id_obat');
+        $this->db->group_by('pengeluaran_apotek.id_obat');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function obat_keluar_apotek()
+    {
+        $this->db->select('obat_apotek.nama_obat, obat_apotek.kode_obat, pengeluaran_apotek.jumlah');
+        $this->db->from('pengeluaran_apotek, obat_apotek');
+        $this->db->where('obat_apotek.id_obat = pengeluaran_apotek.id_obat');
+        $this->db->group_by('pengeluaran_apotek.id_obat');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

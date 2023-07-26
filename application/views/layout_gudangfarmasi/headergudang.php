@@ -1,17 +1,33 @@
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
+<?php
+function calculateDaysLeft($targetDate)
+{
+  $currentDate = date('Y-m-d');
+  $diff = strtotime($currentDate) - strtotime($targetDate);
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+  return time_elapsed_string($diff) . ' yang lalu';
+}
 
-=========================================================
+function time_elapsed_string($seconds)
+{
+  $day = 24 * 60 * 60;
+  $month = 30 * $day;
+  $year = 12 * $month;
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+  if ($seconds >= $year) {
+    $years = floor($seconds / $year);
+    return $years . ' tahun';
+  } elseif ($seconds >= $month) {
+    $months = floor($seconds / $month);
+    return $months . ' bulan';
+  } elseif ($seconds >= $day) {
+    $days = floor($seconds / $day);
+    return $days . ' hari';
+  } else {
+    return 'hari ini';
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -163,7 +179,7 @@
                           </h6>
                           <p class="text-xs text-secondary mb-0">
                             <i class="fa fa-clock me-1"></i>
-                            2 days
+                            <?= calculateDaysLeft($data['tanggal_notif']) ?>
                           </p>
                         </div>
                       </div>

@@ -3,15 +3,15 @@
     <div class="row align-items-center justify-content-lg-between">
       <div class="col-lg-6 mb-lg-0 mb-4">
         <div class="copyright text-center text-sm text-muted text-lg-start">
-          © <script>
+          <!-- © <script>
             document.write(new Date().getFullYear())
           </script>,
           made with <i class="fa fa-heart"></i> by
           <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
           for a better web.
+        </div> -->
         </div>
-      </div>
-      <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
         <ul class="nav nav-footer justify-content-center justify-content-lg-end">
           <li class="nav-item">
             <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
@@ -26,9 +26,9 @@
             <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
           </li>
         </ul>
+      </div> -->
       </div>
     </div>
-  </div>
 </footer>
 
 <!--   Core JS Files   -->
@@ -104,23 +104,23 @@
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 <script>
-  var dataPasien = <?= json_encode($data_pasien) ?>;
-  console.log(dataPasien);
+  var dataObatKeluar = <?= json_encode($top_ten_obat_keluar_apotek) ?>;
 
-  const xValues = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const yValues = [];
+  const namaObat = [];
+  const totalObat = [];
 
-  for (let i = 0; i < dataPasien.length; i++) {
-    yValues.push(dataPasien[i]['total']);
+  for (let i = 0; i < dataObatKeluar.length; i++) {
+    namaObat.push(dataObatKeluar[i]['nama_obat']);
+    totalObat.push(dataObatKeluar[i]['total']);
   }
 
   new Chart("myChart", {
     type: "line",
     data: {
-      labels: xValues,
+      labels: namaObat,
       datasets: [{
         label: 'Bulan',
-        data: yValues,
+        data: totalObat,
         borderColor: "rgba(0,0,255,0.1)",
         backgroundColor: ['aqua'],
         fill: false,

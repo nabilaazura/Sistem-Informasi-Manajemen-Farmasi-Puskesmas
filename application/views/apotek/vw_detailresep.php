@@ -15,10 +15,11 @@
                             <label for="exampleFormControlTextarea1">Resep</label>
                             <textarea name="resep" class="form-control" placeholder="Resep" id="exampleFormControlTextarea1" rows="3" disabled><?= $riwayat_resep['resep']; ?></textarea>
                         </div>
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
+                            <a href="<?= base_url('apotek/cetak_resep/') . '38'  ?> type=" button" class="btn btn-primary">Cetak</a>
                             <button type="button" class="btn btn-primary">Cetak</button>
-                        </div>
-                        <!-- <a href="<?= base_url('apotek/cetak_resep'); ?>" type="button" class="btn btn-primary float-end" ps-3>
+                </div>
+                <a href="<?= base_url('apotek/cetak_resep'); ?>" type="button" class="btn btn-primary float-end" ps-3>
                             <i class="fa-solid fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Laporan
                         </a> -->
                     </form>

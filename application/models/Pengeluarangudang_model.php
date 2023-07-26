@@ -46,4 +46,13 @@ class Pengeluarangudang_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function obat_keluar_gudang()
+    {
+        $this->db->select('obat.nama_obat, obat.kode_obat, pengeluaran_gudang.jumlah');
+        $this->db->from('pengeluaran_gudang, obat');
+        $this->db->where('obat.id_obat = pengeluaran_gudang.id_obat');
+        $this->db->group_by('pengeluaran_gudang.id_obat');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

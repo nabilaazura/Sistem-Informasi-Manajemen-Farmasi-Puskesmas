@@ -9,14 +9,37 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <span class="h6">Laporan Pemakaian dan Permintaan Obat</span>
-          <a href="<?= base_url('gudangfarmasi/cetak_lplpo'); ?>" type="button" class="btn btn-primary float-end" ps-3>
-            <i class="fa-solid fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Laporan
-          </a>
+          <div class="row">
+            <div class="col-md-6">
+              <span class="h6">Laporan Pemakaian dan Permintaan Obat</span>
+            </div>
+            <div class="col-md-3 p-1">
+              <a href="<?= base_url('gudangfarmasi/cetak_lplpo'); ?>" type="button" class="btn btn-primary float-end" ps-3>
+                <i class="fa-solid fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Laporan
+              </a>
+            </div>
+            <div class="col-md-3 p-1">
+              <select class="form-control form-control-md" name="choices-button" id="selectedMonthLplpo" placeholder="Departure">
+                <option value="">-------- Laporan Berdasarkan Bulan --------</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-3">
-            <table id="datatable" class="table align-items-center mb-0 stripe" style="width:100%">
+            <table id="datatableLplpo" class="table align-items-center mb-0 stripe" style="width:100%">
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-3" rowspan="2">No</th>
@@ -129,7 +152,7 @@
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?= $ed; ?></p>
-                        <!-- <p class="text-xs font-weight-bold mb-0"><?= $lplpo_gudang[$index]['ed_gudang']; ?></p> -->
+                        <!-- <p class="text-xs font-weight-bold mb-0"><?= $lplpo_apotek[$index]['ed_apotek'] ?></p> -->
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?= $jumlah_total; ?></p>
@@ -156,15 +179,14 @@
                       <td>
                         <p class="text-xs font-weight-bold mb-0"><?= $jumlah_pengeluaran_gudang; ?></p>
                         <!-- <p class="text-xs font-weight-bold mb-0"><?= $lplpo_gudang[$index]['jumlah_pengeluaran']; ?></p> -->
-
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">masih belum</p>
                       </td>
                     </tr>
                     <?php $i += 1; ?>
-                <?php }
-                } ?>
+                  <?php } ?>
+                <?php } ?>
               </tbody>
             </table>
           </div>

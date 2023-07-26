@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="harga_satuan" class="form-control-label">Harga Satuan</label>
-                            <input name="harga_satuan" value="<?= $obat['harga_satuan']; ?>" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input" required>
+                            <input name="harga_satuan" value="<?= $obat['harga_satuan']; ?>" class="form-control" type="text" placeholder="Harga Satuan" id="example-text-input">
                         </div>
                         <div class="form-group">
                             <label for="jumlah_masuk" class="form-control-label">Jumlah Masuk</label>
