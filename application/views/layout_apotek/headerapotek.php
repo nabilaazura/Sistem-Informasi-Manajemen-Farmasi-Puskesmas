@@ -86,21 +86,27 @@ function time_elapsed_string($seconds)
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == 'permintaan obat') echo 'active' ?>" href="<?= base_url('Apotek/getPermintaanApotek/'); ?>">
+          <a class="nav-link <?php if ($menu == 'permintaan obat') echo 'active' ?>" href="<?= base_url('Apotek/getDataPermintaan/'); ?>">
             <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Permintaan Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == 'pengeluaran obat') echo 'active' ?>" href="<?= base_url('Apotek/getPengeluaranApotek/'); ?>">
+          <a class="nav-link <?php if ($menu == 'pengeluaran obat') echo 'active' ?>" href="<?= base_url('Apotek/getDataPengeluaran/'); ?>">
             <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Pengeluaran Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == 'resep') echo 'active' ?>" href="<?= base_url('Apotek/resepPasien/'); ?>">
+          <a class="nav-link <?php if ($menu == 'resep') echo 'active' ?>" href="<?= base_url('Apotek/resepPasienUmum/'); ?>">
             <i class="fa-solid fa-receipt d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Resep</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?php if ($menu == 'resep_bpjs') echo 'active' ?>" href="<?= base_url('Apotek/resepPasien/'); ?>">
+            <i class="fa-solid fa-receipt d-flex align-items-center justify-content-center"></i>
+            <span class="nav-link-text ms-3">Resep BPJS</span>
           </a>
         </li>
         <li class="nav-item">

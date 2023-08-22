@@ -78,7 +78,6 @@ class Loket extends CI_Controller
 
     function pendaftaranPasien()
     {
-
         if ($this->session->userdata('role') == 'loket') {
             $role = $this->session->userdata('role');
             $idUser = $this->session->userdata('id');
@@ -103,6 +102,9 @@ class Loket extends CI_Controller
             $this->form_validation->set_rules('no_hp', 'No HP', 'required', [
                 'required' => 'No HP Wajib di Isi'
             ]);
+            $this->form_validation->set_rules('tipe', 'Tipe', 'required', [
+                'required' => 'Jenis Pasien Wajib di Isi'
+            ]);
 
             if ($this->form_validation->run() == false) {
                 $this->load->view("layout_loket/header", $data);
@@ -117,6 +119,7 @@ class Loket extends CI_Controller
                     'tanggal_lahir' => $this->input->post('tanggal_lahir'),
                     'alamat' => $this->input->post('alamat'),
                     'no_hp' => $this->input->post('no_hp'),
+                    'tipe' => $this->input->post('tipe'),
                     'tanggal_registrasi' => $now,
                 ];
                 $this->Pasien_model->insert($data);

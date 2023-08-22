@@ -482,4 +482,36 @@ class Poned extends CI_Controller
             redirect(base_url('auth'));
         }
     }
+    function getDataPermintaan()
+    {
+        if ($this->session->userdata('role') == 'poned') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'permintaan obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_permintaan'] = $this->Permintaan_model->getPermintaanPoned();
+
+            $this->load->view("layout_poned/headerponed", $data);
+            $this->load->view("poned/vw_daftarpermintaanponed", $data);
+            $this->load->view("layout_poned/footerponed");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    function getDataPengeluaran()
+    {
+        if ($this->session->userdata('role') == 'poned') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'pengeluaran obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_pengeluaran'] = $this->Pengeluaranponed_model->getPengeluaranPoned();
+
+            $this->load->view("layout_poned/headerponed", $data);
+            $this->load->view("poned/vw_daftarpengeluaranponed", $data);
+            $this->load->view("layout_poned/footerponed");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
 }

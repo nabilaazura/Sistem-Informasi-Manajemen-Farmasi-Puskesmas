@@ -50,6 +50,11 @@
                             <td>:</td>
                             <td><?= $resep; ?></td>
                         </tr>
+                        <tr style="font-size: 6px;">
+                            <td>Total Harga</td>
+                            <td>:</td>
+                            <td><?= "Rp" . number_format($riwayat_resep['total_harga'], 0, ',', '.'); ?></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

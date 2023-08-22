@@ -92,7 +92,7 @@ function time_elapsed_string($seconds)
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == "pengeluaran obat") echo 'active'; ?>" href="<?= base_url('GudangFarmasi/getPengeluaranGudang'); ?>">
+          <a class="nav-link <?php if ($menu == "pengeluaran obat") echo 'active'; ?>" href="<?= base_url('GudangFarmasi/getDataPengeluaran'); ?>">
             <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Pengeluaran Obat</span>
           </a>

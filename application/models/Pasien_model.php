@@ -12,6 +12,7 @@ class Pasien_model extends CI_Model
     public function get()
     {
         $this->db->from($this->table);
+        $this->db->order_by($this->id, 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }

@@ -474,4 +474,36 @@ class Pustu extends CI_Controller
             redirect(base_url('auth'));
         }
     }
+    function getDataPermintaan()
+    {
+        if ($this->session->userdata('role') == 'pustu') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'permintaan obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_permintaan'] = $this->Permintaan_model->getPermintaanPustu();
+
+            $this->load->view("layout_pustu/headerpustu", $data);
+            $this->load->view("pustu/vw_daftarpermintaanpustu", $data);
+            $this->load->view("layout_pustu/footerpustu");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    function getDataPengeluaran()
+    {
+        if ($this->session->userdata('role') == 'pustu') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'pengeluaran obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_pengeluaran'] = $this->Pengeluaran_model->getPengeluaranPustu();
+
+            $this->load->view("layout_pustu/headerpustu", $data);
+            $this->load->view("pustu/vw_daftarpengeluaranpustu", $data);
+            $this->load->view("layout_pustu/footerpustu");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
 }

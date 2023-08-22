@@ -32,6 +32,7 @@
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No HP</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Registrasi</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Aksi</th>
                 </tr>
@@ -64,6 +65,9 @@
                     </td>
                     <td>
                       <p class="text-xs font-weight-bold mb-0"><?= $pasien['no_hp']; ?></p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0"><?= $pasien['tipe'] == 'umum' ? ucfirst($pasien['tipe']) : strtoupper($pasien['tipe']) ?></p>
                     </td>
                     <td>
                       <p class="text-xs font-weight-bold mb-0"><?= $pasien['tanggal_registrasi']; ?></p>

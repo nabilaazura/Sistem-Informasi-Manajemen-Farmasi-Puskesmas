@@ -5,6 +5,7 @@ use Dompdf\Dompdf;
 
 class GudangFarmasi extends CI_Controller
 {
+    //inheritance
     public function __construct()
     {
         parent::__construct();
@@ -742,5 +743,21 @@ class GudangFarmasi extends CI_Controller
         $diff = strtotime($targetDate) - strtotime($currentDate);
 
         return floor($diff / (60 * 60 * 24));
+    }
+    function getDataPengeluaran()
+    {
+        if ($this->session->userdata('role') == 'gudangfarmasi') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'pengeluaran obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_pengeluaran'] = $this->Pengeluarangudang_model->getPengeluaranGudang();
+
+            $this->load->view("layout_gudangfarmasi/headergudang", $data);
+            $this->load->view("gudangfarmasi/vw_daftarpengeluarangudang", $data);
+            $this->load->view("layout_gudangfarmasi/footergudang");
+        } else {
+            redirect(base_url('auth'));
+        }
     }
 }

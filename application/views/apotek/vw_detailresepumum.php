@@ -38,7 +38,7 @@ foreach ($resepArr as $resep) {
         <div class="col-lg-12 mb-lg-0">
             <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
-                    <h5 class="text-capitalize">Detail Resep Obat</h5>
+                    <h5 class="text-capitalize">Detail Resep Obat Pasien Umum</h5>
                 </div>
                 <div class="card-body">
                     <form>
@@ -49,6 +49,10 @@ foreach ($resepArr as $resep) {
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Resep</label>
                             <textarea name="resep" class="form-control" placeholder="Resep" id="exampleFormControlTextarea1" rows="3" disabled><?= $formattedResep ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Total Harga</label>
+                            <input name="nama_pasien" type="text" value="<?= $riwayat_resep['total_harga']; ?>" placeholder="Harga Obat" class="form-control form-control-alternative" disabled />
                         </div>
                     </form>
                 </div>

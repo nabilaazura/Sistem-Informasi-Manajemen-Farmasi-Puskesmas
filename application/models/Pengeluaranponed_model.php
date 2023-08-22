@@ -15,6 +15,15 @@ class Pengeluaranponed_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getPengeluaranPoned()
+    {
+        $this->db->select('obat_poned.kode_obat, obat_poned.nama_obat, obat_poned.satuan, jumlah, keperluan, tanggal_pengeluaran');
+        $this->db->from('pengeluaran_poned');
+        $this->db->join('obat_poned', 'pengeluaran_poned.id_obat = obat_poned.id_obat');
+        $this->db->order_by('pengeluaran_poned.id_pengeluaran_poned', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function getById($id_pengeluaran_poned)
     {
         $this->db->from($this->table);

@@ -46,7 +46,7 @@
             namaPasien.push(element['nama_pasien']);
         });
 
-        console.log(namaPasien);
+        // console.log(namaPasien);
 
         // jQuery inbuilt function
         $("#autocomplete").autocomplete({
@@ -60,14 +60,14 @@
                     }
                 });
 
-                console.log(dataPasien);
+                // console.log(dataPasien);
                 $("#id_pasien").val(dataPasien['id_pasien']);
                 $("#nik").val(dataPasien['nik']);
                 $("#jenis_kelamin").val(dataPasien['jenis_kelamin']);
                 $("#tanggal_lahir").val(dataPasien['tanggal_lahir']);
                 $("#no_hp").val(dataPasien['no_hp']);
                 $("#alamat").val(dataPasien['alamat']);
-
+                $("#tipe").val(dataPasien['tipe'] == 'bpjs' ? dataPasien['tipe'].toUpperCase() : (dataPasien['tipe'][0].toUpperCase() + dataPasien['tipe'].substring(1)));
             }
         });
     });

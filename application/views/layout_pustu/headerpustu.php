@@ -85,13 +85,13 @@ function time_elapsed_string($seconds)
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == "pengeluaran obat") echo 'active' ?>" href="<?= base_url('Pustu/getPengeluaranPustu/'); ?>">
+          <a class="nav-link <?php if ($menu == "pengeluaran obat") echo 'active' ?>" href="<?= base_url('Pustu/getDataPengeluaran/'); ?>">
             <i class="fa-solid fa-prescription-bottle-medical d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Pengeluaran Obat</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if ($menu == "permintaan obat") echo 'active' ?>" href="<?= base_url('Pustu/getPermintaanPustu/'); ?>">
+          <a class="nav-link <?php if ($menu == "permintaan obat") echo 'active' ?>" href="<?= base_url('Pustu/getDataPermintaan/'); ?>">
             <i class="fa-solid fa-tablets d-flex align-items-center justify-content-center"></i>
             <span class="nav-link-text ms-3">Permintaan Obat</span>
           </a>

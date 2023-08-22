@@ -90,16 +90,22 @@
 
         $('#btn_tambah_resep').click(function() {
             const namaObat = $('#nama_obat').val();
+            const jumlahObat = $('#jumlah_obat').val();
             const keterangan = $('#keterangan').val();
 
-            // Get old resep
-            var resep = $('#resep_obat').val();
-            resep += namaObat + " (" + keterangan + "); ";
-            $('#resep_obat').val(resep);
+            if (namaObat !== "" && jumlahObat !== "" && keterangan !== "") {
+                // Get old resep
+                var resep = $('#resep_obat').val();
 
-            // Clear input text
-            $('#nama_obat').val('');
-            $('#keterangan').val('');
+                resep += jumlahObat + "*" + namaObat + " [" + keterangan + "]; ";
+
+                $('#resep_obat').val(resep);
+
+                // Clear input text
+                $('#nama_obat').val('');
+                $('#jumlah_obat').val('');
+                $('#keterangan').val('');
+            }
         });
     });
 </script>

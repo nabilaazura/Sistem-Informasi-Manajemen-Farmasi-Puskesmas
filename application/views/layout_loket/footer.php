@@ -46,7 +46,7 @@
       namaPasien.push(element['nama_pasien']);
     });
 
-    console.log(namaPasien);
+    // console.log(namaPasien);
 
     // jQuery inbuilt function
     $("#autocomplete").autocomplete({
@@ -60,7 +60,7 @@
           }
         });
 
-        console.log(dataPasien);
+        // console.log(dataPasien['tipe']);
         $("#id_pasien").val(dataPasien['id_pasien']);
         $("#nik").val(dataPasien['nik']);
         $("#jenis_kelamin").val(dataPasien['jenis_kelamin']);
@@ -116,7 +116,7 @@
 
 <script>
   var dataPasien = <?= json_encode($data_pasien) ?>;
-  console.log(dataPasien);
+  // console.log(dataPasien);
 
   const xValues = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const yValues = [];

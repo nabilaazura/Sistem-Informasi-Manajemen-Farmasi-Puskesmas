@@ -54,6 +54,7 @@ class Poliklinik extends CI_Controller
                 $data['data_pendaftaran'][$i]['jenis_kelamin'] = $dataPasien['jenis_kelamin'];
                 $data['data_pendaftaran'][$i]['tanggal_lahir'] = $dataPasien['tanggal_lahir'];
                 $data['data_pendaftaran'][$i]['alamat'] = $dataPasien['alamat'];
+                $data['data_pendaftaran'][$i]['tipe'] = $dataPasien['tipe'];
                 $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             }
 
@@ -107,29 +108,33 @@ class Poliklinik extends CI_Controller
                     'resep' => $this->input->post('resep', false),
                     'dokter' => $this->input->post('dokter'),
                 ];
-                $dataresep = [
-                    'id_pendaftaran' => $this->input->post('id_antrian'),
-                    'id_pasien' => $this->input->post('id_pasien'),
-                    'resep' => $this->input->post('resep'),
-                ];
 
                 $this->RekamMedis_model->insert($data);
-                $this->Resep_model->insert($dataresep);
                 $this->Pendaftaranpasien_model->updatestatus('Sudah selesai', $this->input->post('id_antrian'));
 
                 // Split the resep
                 $resep = $this->input->post('resep', false);
                 $items = explode("; ", $resep);
+                $totalHarga = 0;
 
                 foreach ($items as $item) {
                     if ($item != "") {
-                        $dt = explode("(", $item);
-                        $namaObat = trim($dt[0]);
+                        $dt = explode("*", $item);
+                        $jumlahObat = $dt[0];
+
+                        $dt2 = explode("[", $dt[1]);
+                        $namaObat = trim($dt2[0]);
 
                         $dataObatYangDipilih = $this->Obatapotek_model->getByNameExp($namaObat);
-                        $sisa_obat_keluar = 1;
+                        $sisa_obat_keluar = $jumlahObat;
                         foreach ($dataObatYangDipilih as $data) {
                             $sisa_stok_obat = $data['jumlah_masuk'];
+
+                            // Cek harga obat
+                            if ($data['harga_satuan'] != "") {
+                                $totalHarga += $data['harga_satuan'] * $jumlahObat;
+                            }
+
                             if ($sisa_obat_keluar != 0) {
                                 if ($sisa_stok_obat < $sisa_obat_keluar) {
                                     $sisa_obat_keluar -= $sisa_stok_obat;
@@ -197,6 +202,15 @@ class Poliklinik extends CI_Controller
                         }
                     }
                 }
+
+                // Create resep
+                $dataresep = [
+                    'id_pendaftaran' => $this->input->post('id_antrian'),
+                    'id_pasien' => $this->input->post('id_pasien'),
+                    'resep' => $this->input->post('resep'),
+                    'total_harga' => $totalHarga,
+                ];
+                $this->Resep_model->insert($dataresep);
 
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Rekam Medis Pasien Berhasil Ditambah!</div>');
                 redirect(base_url('Poliklinik/getDataAntrian'));

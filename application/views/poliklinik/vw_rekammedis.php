@@ -51,7 +51,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="form-group">
-                            <label for="example-date-input" class="form-control-label">Nama Obat</label>
+                            <label for="example-date-input" class="form-control-label">Nama Obat (R/)</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                                 <input name="nama_obat" id="nama_obat" class="form-control" placeholder="Cari Obat" type="text">
@@ -59,8 +59,12 @@
                             <small id="stok" class="form-text text-muted">Stok: -</small>
                         </div>
                         <div class="form-group">
-                            <label for="example-text-input">Keterangan</label>
-                            <input name="poliklinik" id="keterangan" type="text" class="form-control" placeholder="Misal: 3x Sehari" class="form-control form-control-alternative" />
+                            <label for="example-text-input">Jumlah Obat</label>
+                            <input name="jumlah_obat" id="jumlah_obat" type="number" class="form-control" placeholder="Misal: 2" class="form-control form-control-alternative" />
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Pemakaian (S)</label>
+                            <input name="poliklinik" id="keterangan" type="text" class="form-control" placeholder="Misal: 3 dd 1 tab pc" class="form-control form-control-alternative" />
                         </div>
                         <div class="mb-3">
                             <a class="btn btn-primary" id="btn_tambah_resep" disabled>Tambah Resep</a>

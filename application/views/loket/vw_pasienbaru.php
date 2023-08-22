@@ -60,6 +60,14 @@
                                 <textarea name="alamat" class="form-control" placeholder="Alamat" id="alamat" rows="3"></textarea>
                                 <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Jenis Pasien</label>
+                                <select id="tipe" name="tipe" class="form-control" id="exampleFormControlSelect1" required>
+                                    <option value="umum" selected>Pasien Umum</option>
+                                    <option value="bpjs">Pasien BPJS</option>
+                                </select>
+                                <?= form_error('tipe', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
                             <div class="col-sm-7"></div>
                             <div class="col-sm-2 float-end">
                                 <a href="<?= base_url('Loket') ?>" class="btn btn-outline-danger" style="background-color: white;">Batal</a>&nbsp;&nbsp;

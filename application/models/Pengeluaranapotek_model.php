@@ -15,6 +15,15 @@ class Pengeluaranapotek_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getPengeluaranApotek()
+    {
+        $this->db->select('obat_apotek.kode_obat, obat_apotek.nama_obat, obat_apotek.satuan, jumlah, keperluan, tanggal_pengeluaran');
+        $this->db->from('pengeluaran_apotek');
+        $this->db->join('obat_apotek', 'pengeluaran_apotek.id_obat = obat_apotek.id_obat');
+        $this->db->order_by('pengeluaran_apotek.id_pengeluaran_apotek', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function getById($id_pengeluaran_apotek)
     {
         $this->db->from($this->table);
@@ -34,7 +43,6 @@ class Pengeluaranapotek_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
-
     public function top_ten_obat_keluar_apotek()
     {
         $this->db->select('obat_apotek.nama_obat, SUM(jumlah) AS total');

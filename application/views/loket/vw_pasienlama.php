@@ -35,11 +35,15 @@
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No HP</label>
-                            <input name="no_hp" id="no_hp" type="text" placeholder="No HP" class="form-control" readonly required />
+                            <input name="no_hp" id="no_hp" type="text" placeholder="misal: 08123456789" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <input name="alamat" id="alamat" type="text" placeholder="Alamat" class="form-control" readonly required />
+                            <input name="alamat" id="alamat" type="text" placeholder="misal: Jl. Palas" class="form-control" readonly required />
+                        </div>
+                        <div class="form-group">
+                            <label for="tipe">Jenis Pasien</label>
+                            <input name="tipe" id="tipe" type="text" placeholder="misal: Umum" class="form-control" readonly required />
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Poliklinik</label>

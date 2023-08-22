@@ -108,11 +108,33 @@ class Apotek extends CI_Controller
         if ($this->session->userdata('role') == 'apotek') {
             $idUser = $this->session->userdata('id');
 
+            $data['menu'] = 'resep_bpjs';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['riwayat_resep'] = $this->Resep_model->getByIdPendaftaran($id_pendaftaran);
+
+            // var_dump($data['riwayat_resep']);
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_detailresep", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+
+    function detailResepPasienUmum($id_pendaftaran)
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
             $data['menu'] = 'resep';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
             $data['riwayat_resep'] = $this->Resep_model->getByIdPendaftaran($id_pendaftaran);
+
+            // var_dump($data['riwayat_resep']);
+
             $this->load->view("layout_apotek/headerapotek", $data);
-            $this->load->view("apotek/vw_detailresep", $data);
+            $this->load->view("apotek/vw_detailresepUmum", $data);
             $this->load->view("layout_apotek/footerapotek");
         } else {
             redirect(base_url('auth'));
@@ -123,12 +145,9 @@ class Apotek extends CI_Controller
     {
         $dompdf = new Dompdf();
         $data['riwayat_resep'] = $this->Resep_model->getByIdPendaftaran($id_pendaftaran);
-        // var_dump($data['riwayat_resep']['resep']);
-        // $data['nama_pasien'] = $this->Resep_model->get($id_resep);
         $data['tanggal_pendaftaran'] = $this->Pendaftaranpasien_model->getByIdPendaftaran($id_pendaftaran);
-        // $data['lplpo_pustu'] = $this->LPLPO_model->getLplpoPustu();
-        // $data['lplpo_poned'] = $this->LPLPO_model->getLplpoPoned();
-        // echo htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+
+        // var_dump($data['riwayat_resep']);
 
         $dompdf->setPaper('A9', 'horizontal');
         $html = $this->load->view('apotek/resep_resi', $data, true);
@@ -142,7 +161,7 @@ class Apotek extends CI_Controller
         if ($this->session->userdata('role') == 'apotek') {
             $idUser = $this->session->userdata('id');
 
-            $data['menu'] = 'resep';
+            $data['menu'] = 'resep_bpjs';
             $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
 
             $data['resep'] = $this->Resep_model->get();
@@ -153,6 +172,26 @@ class Apotek extends CI_Controller
             redirect(base_url('auth'));
         }
     }
+
+    function resepPasienUmum()
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'resep';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['resep'] = $this->Resep_model->getResepPasienUmum();
+
+            // var_dump($data['resep']);
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_resepUmum", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+
     function getPemasukanApotek()
     {
         if ($this->session->userdata('role') == 'apotek') {
@@ -530,6 +569,39 @@ class Apotek extends CI_Controller
 
             $this->load->view("layout_apotek/headerapotek", $data);
             $this->load->view("apotek/vw_obatkeluarapotek", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+    function getDataPermintaan()
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'permintaan obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_permintaan'] = $this->Permintaan_model->getPermintaanApotek();
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_daftarpermintaanapotek", $data);
+            $this->load->view("layout_apotek/footerapotek");
+        } else {
+            redirect(base_url('auth'));
+        }
+    }
+
+    function getDataPengeluaran()
+    {
+        if ($this->session->userdata('role') == 'apotek') {
+            $idUser = $this->session->userdata('id');
+
+            $data['menu'] = 'pengeluaran obat';
+            $data['notifikasi'] = $this->Notifikasi_model->getByIdUser($idUser);
+            $data['daftar_pengeluaran'] = $this->Pengeluaranapotek_model->getPengeluaranApotek();
+
+            $this->load->view("layout_apotek/headerapotek", $data);
+            $this->load->view("apotek/vw_daftarpengeluaranapotek", $data);
             $this->load->view("layout_apotek/footerapotek");
         } else {
             redirect(base_url('auth'));

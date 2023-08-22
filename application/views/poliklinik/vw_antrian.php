@@ -17,6 +17,7 @@
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Kelamin</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Lahir</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis Pasien</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal Berobat</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Poliklinik</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status Pendaftaran</th>
@@ -51,6 +52,9 @@
                     </td>
                     <td style="max-width: 200px;">
                       <p class="text-xs font-weight-bold mb-0 text-truncate"><?= $data['alamat']; ?></p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0"><?= $data['tipe'] == 'umum' ? ucfirst($data['tipe']) : strtoupper($data['tipe']) ?></p>
                     </td>
                     <td>
                       <p class="text-xs font-weight-bold mb-0"><?= $data['tanggal_pendaftaran']; ?></p>

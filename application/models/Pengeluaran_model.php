@@ -15,6 +15,15 @@ class Pengeluaran_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getPengeluaranPustu()
+    {
+        $this->db->select('obat_pustu.kode_obat, obat_pustu.nama_obat, obat_pustu.satuan, jumlah, keperluan, tanggal_pengeluaran');
+        $this->db->from('pengeluaran_pustu');
+        $this->db->join('obat_pustu', 'pengeluaran_pustu.id_obat = obat_pustu.id_obat');
+        $this->db->order_by('pengeluaran_pustu.id_pengeluaran_pustu', 'DESC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function getById($id_pengeluaran_pustu)
     {
         $this->db->from($this->table);

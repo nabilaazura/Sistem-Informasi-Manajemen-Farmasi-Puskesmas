@@ -12,6 +12,7 @@ class Notifikasi_model extends CI_Model
     public function get()
     {
         $this->db->from($this->table);
+        $this->db->order_by($this->id, 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -31,6 +32,7 @@ class Notifikasi_model extends CI_Model
     {
         $this->db->from($this->table);
         $this->db->where('id_user', $id_user);
+        $this->db->order_by($this->id, 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
